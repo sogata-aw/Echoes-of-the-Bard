@@ -14,14 +14,9 @@ def main():
     # Instance
     game = g.Game(screen)
 
-    # sprite
+    # Ajout sprite
     all_sprites = pg.sprite.Group()
-    all_sprites.add(game.bard)
-    all_sprites.add(game.boss)
-    all_sprites.add(game.note01)
-    all_sprites.add(game.note02)
-    all_sprites.add(game.note03)
-    all_sprites.add(game.note04)
+    addSprite(game,all_sprites)
 
     running = True
     while running:
@@ -41,6 +36,14 @@ def main():
         pg.display.flip()
         clock.tick(60)
     pg.quit()
+
+def addSprite(game,all_sprites):
+    all_sprites.add(game.bard)
+    all_sprites.add(game.boss)
+    all_sprites.add(game.note01)
+    all_sprites.add(game.note02)
+    all_sprites.add(game.note03)
+    all_sprites.add(game.note04)
 
 if __name__ == "__main__":
     main()

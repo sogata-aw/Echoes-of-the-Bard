@@ -1,3 +1,5 @@
+import os
+
 import pygame as pg
 
 class Bard(pg.sprite.Sprite):
@@ -6,13 +8,13 @@ class Bard(pg.sprite.Sprite):
         self.pv = 100
 
         # Image normale
-        self.idle_image = pg.image.load("assets/bard/bard-front.png").convert_alpha()
+        self.idle_image = pg.image.load(os.path.join("assets","bard","bard-front.png")).convert_alpha()
         self.idle_image = pg.transform.scale_by(self.idle_image, 0.2)
         self.rect = self.idle_image.get_rect(topleft=(x, y))
         self.image = self.idle_image
 
         # Image potion
-        self.potion_image = pg.image.load("assets/bard/bard-potion-alt.png").convert_alpha()
+        self.potion_image = pg.image.load(os.path.join("assets","bard","bard-potion-alt.png")).convert_alpha()
         self.potion_image = pg.transform.scale_by(self.potion_image, 0.2)
 
         # Animation potion

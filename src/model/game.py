@@ -1,3 +1,5 @@
+import os
+
 import pygame as pg
 from src.model.bard import Bard
 from src.model.boss import Boss
@@ -10,7 +12,7 @@ class Game:
 
         # background
         self.background = pg.Surface(self.screen.get_size())
-        self.background = pg.image.load("assets/menu_image.jpg")
+        self.background = pg.image.load(os.path.join("assets","menu_image.jpg"))
         self.background = pg.transform.scale(self.background, screen.get_size())
         self.screen.blit(self.background, (0, 0))
         self.bard = Bard(y=500,x=100)
