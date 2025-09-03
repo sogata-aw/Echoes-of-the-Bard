@@ -13,20 +13,24 @@ def main():
 
     # Instance
     game = g.Game(screen)
+
+    # sprite
+    all_sprites = pg.sprite.Group()
+    all_sprites.add(game.bard)
+    all_sprites.add(game.note01)
+
     running = True
     while running:
         dt = clock.tick(60)
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 running = False
-
-        screen.blit(game.background, (0, 0))
-
-        game.note01.update()
-
-        game.barde.draw(screen)
-        game.note01.draw(screen)
-
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_DOWN:
+                    game.bard.drinkPotion()
+        all_sprites.update()
+        all_sprites.draw(screen)
+        pg.display.flip()
         pg.display.flip()
         clock.tick(60)
     pg.quit()
