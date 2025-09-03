@@ -9,14 +9,20 @@ def main():
     screen = pygame.display.set_mode((1024, 768))
     menu_img = pygame.image.load("assets/menu_image.jpg")
     menu_image_redimensionnee = pygame.transform.scale(menu_img, (1280, 720))
-    btn_play = pygame.transform.scale(pygame.image.load("assets/play_button.png"),(800,400))
+    btn_play = pygame.transform.scale(pygame.image.load("assets/play_button.png"), (800, 400))
+    btn_play_cho = pygame.transform.scale(pygame.image.load("assets/play_button_choosen.png"),(800,400))
     btn_quit = pygame.transform.scale(pygame.image.load("assets/quit_button.png"),(800,400))
+    btn_quit_cho = pygame.transform.scale(pygame.image.load("assets/quit_button_choosen.png"), (800, 400))
     # Définit l'horloge pour connaitre le temps qui a passé
     clock = pygame.time.Clock()
     # Pour savoir quand la boucle du jeu se termine
     running = True
     # Le temps passé entre deux rafraichissement de l'écran en millisecondes
     dt = 0
+
+    # 0 = Play, 1 =Quit
+    selected_option = 0 ;
+
     # La position du joueur : au milieu de l'écran
     player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
     # Boucle de l'animation
@@ -24,28 +30,31 @@ def main():
         # Limite le frame rate à 60 images par secondes et retourne le temps réel passé
         dt = clock.tick(60)
         screen.blit(menu_image_redimensionnee,(0,0))
-        screen.blit(btn_play, (screen.get_width() / 2-400, 130))
-        screen.blit(btn_quit, (screen.get_width() / 2-400, 230))
+
         # Parcourt tous les évenements pour les traiter
         for event in pygame.event.get():
             # QUIT signifie que l'utilisateur a fermé la fenêtre
             if event.type == pygame.QUIT:
                 running = False
-        # Efface l'écran précédent en remplissant l'écran
-        #screen.fill("green")
-        # Examine les touches pressées, possiblement plusieurs
-        keys = pygame.key.get_pressed()
-        # Action de modification pour chaque touche
-        if keys[pygame.K_s]:
-            player_pos.x -= 0.3 * dt
-        if keys[pygame.K_d]:
-            player_pos.x += 0.3 * dt
-        if keys[pygame.K_a]:
-            player_pos.y -= 0.3 * dt
-        if keys[pygame.K_q]:
-            player_pos.y += 0.3 * dt
-        # Dessin d'un cercle à la position du joueur
-        pygame.draw.circle(screen, "red", player_pos, 40)
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_DOWN:
+                    selected_option = 1
+                elif event.key == pygame.K_UP:
+                    selected_option = 0
+                elif event.key == pygame.K_RETURN:
+                    if selected_option == 0:
+                        print("Lancer le jeu")
+                    elif selected_option == 1:
+                        running = False
+
+        if selected_option == 0:
+            screen.blit(btn_play_cho, (screen.get_width() / 2 - 400, 130))
+            screen.blit(btn_quit, (screen.get_width() / 2 - 400, 230))
+        else :
+            screen.blit(btn_play, (screen.get_width() / 2 - 400, 130))
+            screen.blit(btn_quit_cho, (screen.get_width() / 2 - 400, 230))
+
         # Comme les dessins sont fait dans un buffer, permute le buffer
         pygame.display.flip()
 
