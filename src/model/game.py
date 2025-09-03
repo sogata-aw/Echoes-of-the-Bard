@@ -3,6 +3,8 @@ import os
 import pygame as pg
 from src.model.bard import Bard
 from src.model.boss import Boss
+from src.model.bossHp import BossHp
+
 from src.model.note import Note
 
 
@@ -21,5 +23,6 @@ class Game:
         self.note03 = Note(x=400, y=400, type=3)
         self.note04 = Note(x=500, y=500, type=4)
         self.boss = Boss(y=350,x=650)
+        self.bosshp = BossHp(self.boss)
 
         self.isEnded = False

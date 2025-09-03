@@ -27,6 +27,8 @@ def main():
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_SPACE:
                     game.bard.drinkPotion()
+                if event.key == pg.K_DOWN:
+                    game.boss.take_damage(10)
 
         # Maj de l'affichage
         all_sprites.update()
@@ -44,6 +46,6 @@ def addSprite(game,all_sprites):
     all_sprites.add(game.note02)
     all_sprites.add(game.note03)
     all_sprites.add(game.note04)
-
+    all_sprites.add(game.bosshp)
 if __name__ == "__main__":
     main()
