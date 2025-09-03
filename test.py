@@ -1,6 +1,6 @@
 # Example file showing a circle moving on screen
 import pygame
-
+import src.model.game as g
 # Programme principal du jeux
 def main():
     # Démmarre le module
@@ -17,6 +17,7 @@ def main():
     clock = pygame.time.Clock()
     # Pour savoir quand la boucle du jeu se termine
     running = True
+    in_menu = True
     # Le temps passé entre deux rafraichissement de l'écran en millisecondes
     dt = 0
 
@@ -37,29 +38,32 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
 
-            if event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYDOWN and in_menu:
                 if event.key == pygame.K_DOWN:
                     selected_option = 1
                 elif event.key == pygame.K_UP:
                     selected_option = 0
                 elif event.key == pygame.K_RETURN:
                     if selected_option == 0:
-                        print("Lancer le jeu")
+                        in_menu = False
                     elif selected_option == 1:
                         running = False
 
-        if selected_option == 0:
-            screen.blit(btn_play_cho, (screen.get_width() / 2 - 400, 130))
-            screen.blit(btn_quit, (screen.get_width() / 2 - 400, 230))
-        else :
-            screen.blit(btn_play, (screen.get_width() / 2 - 400, 130))
-            screen.blit(btn_quit_cho, (screen.get_width() / 2 - 400, 230))
+        if in_menu:
+            if selected_option == 0:
+                screen.blit(btn_play_cho, (screen.get_width() / 2 - 400, 130))
+                screen.blit(btn_quit, (screen.get_width() / 2 - 400, 230))
+            else:
+                screen.blit(btn_play, (screen.get_width() / 2 - 400, 130))
+                screen.blit(btn_quit_cho, (screen.get_width() / 2 - 400, 230))
+        else:
+            screen.fill((0, 0, 0))  # Efface l'écran (fond noir)
+            print("Lancer le jeu")
 
-        # Comme les dessins sont fait dans un buffer, permute le buffer
+        # Mettre à jour l'affichage
         pygame.display.flip()
 
     # Termine proprement le module
     pygame.quit()
-
 # Appel au programme principal
 main()
