@@ -15,6 +15,7 @@ def main():
     game = g.Game(screen)
     running = True
     while running:
+        dt = clock.tick(60)
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 running = False
