@@ -18,6 +18,7 @@ def main():
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 running = False
+        game.barde.draw(screen)
         pg.display.update()
     pg.quit()
 
