@@ -6,9 +6,11 @@ def main():
     # Démmarre le module
     pygame.init()
     # définit l'écran et sa taille, retourne la surface pour le dessin
-    screen = pygame.display.set_mode((1280, 720))
-    img = pygame.image.load("assets/menu_image.jpg")
-    image_redimensionnee = pygame.transform.scale(img, (1280, 720))
+    screen = pygame.display.set_mode((1024, 768))
+    menu_img = pygame.image.load("assets/menu_image.jpg")
+    menu_image_redimensionnee = pygame.transform.scale(menu_img, (1280, 720))
+    btn_play = pygame.transform.scale(pygame.image.load("assets/play_button.png"),(800,400))
+    btn_quit = pygame.transform.scale(pygame.image.load("assets/quit_button.png"),(800,400))
     # Définit l'horloge pour connaitre le temps qui a passé
     clock = pygame.time.Clock()
     # Pour savoir quand la boucle du jeu se termine
@@ -21,7 +23,9 @@ def main():
     while running:
         # Limite le frame rate à 60 images par secondes et retourne le temps réel passé
         dt = clock.tick(60)
-        screen.blit(image_redimensionnee,(0,0))
+        screen.blit(menu_image_redimensionnee,(0,0))
+        screen.blit(btn_play, (screen.get_width() / 2-400, 130))
+        screen.blit(btn_quit, (screen.get_width() / 2-400, 230))
         # Parcourt tous les évenements pour les traiter
         for event in pygame.event.get():
             # QUIT signifie que l'utilisateur a fermé la fenêtre
