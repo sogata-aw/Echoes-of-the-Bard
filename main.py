@@ -1,61 +1,36 @@
 #!/usr/bin/env python
-
 import pygame as pg
-
-# Variable globale pour débug
-pause = False
 
 class Game:
     def __init__(self, screen: pg.Surface):
-        # Conserve le lien vers l'objet surface ecran du jeux
         self.screen = screen
 
-        # Crée une surface pour le fond du jeu de même taille que la fenêtre
+        # background
         self.background = pg.Surface(self.screen.get_size())
-        self.background.fill("purple")
-
-        # Dessine le font d'écran une première fois
+        self.background = pg.image.load("assets/menu_image.jpg")
+        self.background = pg.transform.scale(self.background, screen.get_size())
         self.screen.blit(self.background, (0, 0))
 
-        # Vrai si le jeu est fini
         self.isEnded = False
-
-    def isRunning(self):
-        global pause
-        if self.isEnded:
-            return False
-        return True
 
 # Fonction principale : pas de varaibles globales
 def main():
-    # Initialisation de pygame
     pg.init()
-
-    # Donne un nom à la fenêtre
-    pg.display.set_caption("Jeux")
-    # Taille de l'écran imposée
-    screenSize = (1024, 768)
-    # Crée la surface qui va servir de surface de jeu
+    pg.display.set_caption("Jeux") # nom fenêtre
+    screenSize = (1024, 768) # Taille écran
     screen = pg.display.set_mode(screenSize)
-    # Creé un objet horloge pour gerer le temps entre deux images
-    clock = pg.time.Clock()
-    # Nombre de millisecondes entre deux images
-    dt = 0
+    clock = pg.time.Clock() # horloge
+    dt = 0 # Nombre de millisecondes entre deux images
 
     # Instance
     game = Game(screen)
-
-    #Boucles
-    while game.isRunning():
-        # Limite la vitesse à 6O images max par secondes
-        # Calcule le temps réel entre deux images en millisecondes
-        dt = clock.tick(60)
-
-        # Affiche le nouvel état de l'écran
-        pg.display.flip()
-
-        # Fin utilisation de pygame
-        pg.quit()
+    running = True
+    while running:
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                running = False
+        pg.display.update()
+    pg.quit()
 
 if __name__ == "__main__":
     main()
