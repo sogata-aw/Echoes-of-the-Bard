@@ -9,10 +9,10 @@ def main():
     screen = pygame.display.set_mode((1024, 768))
     menu_img = pygame.image.load("assets/menu_image.jpg")
     menu_image_redimensionnee = pygame.transform.scale(menu_img, (1280, 720))
-    btn_play = pygame.transform.scale(pygame.image.load("assets/play_button.png"), (800, 400))
-    btn_play_cho = pygame.transform.scale(pygame.image.load("assets/play_button_choosen.png"),(800,400))
-    btn_quit = pygame.transform.scale(pygame.image.load("assets/quit_button.png"),(800,400))
-    btn_quit_cho = pygame.transform.scale(pygame.image.load("assets/quit_button_choosen.png"), (800, 400))
+    btn_play = pygame.transform.scale(pygame.image.load("assets/buttons/play_button.png"), (800, 400))
+    btn_play_cho = pygame.transform.scale(pygame.image.load("assets/buttons/play_button_choosen.png"), (800, 400))
+    btn_quit = pygame.transform.scale(pygame.image.load("assets/buttons/quit_button.png"), (800, 400))
+    btn_quit_cho = pygame.transform.scale(pygame.image.load("assets/buttons/quit_button_choosen.png"), (800, 400))
     # Définit l'horloge pour connaitre le temps qui a passé
     clock = pygame.time.Clock()
     # Pour savoir quand la boucle du jeu se termine
