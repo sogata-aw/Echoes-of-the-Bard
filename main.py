@@ -18,8 +18,16 @@ def main():
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 running = False
+
+        screen.blit(game.background, (0, 0))
+
+        game.note01.update()
+
         game.barde.draw(screen)
-        pg.display.update()
+        game.note01.draw(screen)
+
+        pg.display.flip()
+        clock.tick(60)
     pg.quit()
 
 if __name__ == "__main__":
