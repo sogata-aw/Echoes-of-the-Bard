@@ -22,7 +22,7 @@ class Game:
 
         self.degatsTot=0
 
-        self.boss = Boss(x=400, y=-130)
+        self.boss = Boss(x=400, y=-130, game=self, max_hp=100, difficulte=1, base_damage=1)
         self.bosshp = BossHp(self.boss)
 
         self.bard = Bard(x=100, y=400)
@@ -97,10 +97,10 @@ class Game:
         # 1) Update des notes existantes et nettoyage
         i = 0
         while i < 4:
-            n = self.notes[i]
-            if n is not None:
-                if n.alive:
-                    listSprite.add(n)
+            note = self.notes[i]
+            if note is not None:
+                if note.alive:
+                    listSprite.add(note)
                 else:
                     self.notes[i] = None
             i += 1
@@ -124,12 +124,10 @@ class Game:
                 n.draw(self.screen)
             i += 1
 
-        print(self.degatsTot)
-
     def handle_key(self, key):
         for note in self.notes:
             if note is not None and note.key == key and note.alive:
                 self.degatsTot += note.hit()
-                self.boss.take_damage(self.degatsTot)
+                self.boss.take_damage(note.hit())
                 self.bosshp.draw()
                 print ("Score total:"+str(self.degatsTot))
