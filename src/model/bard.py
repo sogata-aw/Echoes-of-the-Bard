@@ -45,8 +45,8 @@ class Bard(pg.sprite.Sprite):
     def draw(self, surface):
         surface.blit(self.image, self.rect)
 
-    def update_hp(self) -> pygame.sprite.Group:
-        self.health_sprites.clear()
+    def update_hp(self):
+        self.health_sprites = pygame.sprite.Group()
 
         for i in range(0,self.pv):
             health = pygame.sprite.Sprite()

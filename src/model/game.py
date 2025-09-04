@@ -116,7 +116,7 @@ class Game:
 
     def draw(self):
         self.screen.blit(self.background, (0,0))
-        self.barde.draw(self.screen)
+        self.bard.draw(self.screen)
 
         i = 0
         while i < 4:
