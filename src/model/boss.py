@@ -9,13 +9,14 @@ class Boss(pg.sprite.Sprite):
         self.max_hp = 100
         self.hp = self.max_hp
 
-        # Etats possibles : 'basic', 'hurt'
+        # Etats possibles : 'basic', 'hurt', 'dead'
         self.state = 'basic'
 
         # Frames pour chaque état
         self.animations = {
             'basic': [],
             'hurt': [],
+            'dead': [],
         }
 
         for i in range(0, 5):
@@ -28,6 +29,11 @@ class Boss(pg.sprite.Sprite):
             img = pg.transform.scale_by(img, 0.5)
             self.animations['hurt'].append(img)
 
+        for i in range(0,1):
+            img = pg.image.load(os.path.join("assets", "boss", "ogre", "hurt", f"frame_{i}.png")).convert_alpha()
+            img = pg.transform.scale_by(img, 0.5)
+            self.animations['dead'].append(img)
+
         self.frame_index = 0
         self.image = self.animations['basic'][self.frame_index]
         self.rect = self.image.get_rect(topleft=(x, y))
@@ -37,13 +43,16 @@ class Boss(pg.sprite.Sprite):
 
     def take_damage(self, amount):
         """Inflige des dégâts au boss"""
-        if amount <= self.hp:
+        if amount > self.hp:
             self.hp = 0
         else:
             self.hp -= amount
-        self.state = 'hurt'
+        if self.hp > 0:
+            self.state = 'hurt'
+        else:
+            self.state = 'dead'
+            print("mort")
         self.frame_index = 0
-
 
     def update(self):
         now = pg.time.get_ticks()
@@ -60,6 +69,10 @@ class Boss(pg.sprite.Sprite):
                     # Retour à basic après hurt
                     self.state = 'basic'
                     self.frame_index = 0
+                # Supprimer le boss si il est mort
+                elif self.state == 'dead':
+                    self.frame_index = 0
+                    self.kill()
 
             self.image = frames[self.frame_index]
 

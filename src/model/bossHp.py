@@ -18,3 +18,8 @@ class BossHp(pg.sprite.Sprite):
         fill_width = int((self.boss.hp / self.boss.max_hp) * self.width)
         if fill_width > 0:
             pg.draw.rect(self.image, (0, 255, 0), (0, 0, fill_width, self.height))
+
+        # Supprimer la barre si le boss est mort
+        if self.boss.hp == 0:
+            self.kill()
+
