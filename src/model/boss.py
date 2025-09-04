@@ -37,7 +37,10 @@ class Boss(pg.sprite.Sprite):
 
     def take_damage(self, amount):
         """Inflige des dégâts au boss"""
-        self.hp -= amount
+        if amount <= self.hp:
+            self.hp = 0
+        else:
+            self.hp -= amount
         self.state = 'hurt'
         self.frame_index = 0
 
