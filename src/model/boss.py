@@ -2,16 +2,19 @@ import pygame as pg
 import os
 
 class Boss(pg.sprite.Sprite):
-    def __init__(self, x, y):
+    def __init__(self, x, y,game, max_hp=1000, difficulte=1, base_damage=1):
         super().__init__()
 
         # HP
-        self.max_hp = 100
+        self.BASE_DAMAGE = base_damage
+        self.max_hp = max_hp
         self.hp = self.max_hp
+        self.difficulte = difficulte  # 0 facile, 1 normal, 2 moyen, 3 difficile
 
+        self.attack_speed = 6000  #/ difficulte
         # Etats possibles : 'basic', 'hurt', 'dead'
         self.state = 'basic'
-
+        self.game = game
         # Frames pour chaque état
         self.animations = {
             'basic': [],
@@ -40,6 +43,7 @@ class Boss(pg.sprite.Sprite):
 
         self.animation_speed = 200
         self.last_update = pg.time.get_ticks()
+        self.last_attack = pg.time.get_ticks()
 
     def take_damage(self, amount):
         """Inflige des dégâts au boss"""
@@ -51,7 +55,8 @@ class Boss(pg.sprite.Sprite):
             self.state = 'hurt'
         else:
             self.state = 'dead'
-            print("mort")
+            print("Boss Mort")
+            self.kill()
         self.frame_index = 0
 
     def update(self):
@@ -69,12 +74,15 @@ class Boss(pg.sprite.Sprite):
                     # Retour à basic après hurt
                     self.state = 'basic'
                     self.frame_index = 0
-                # Supprimer le boss si il est mort
-                elif self.state == 'dead':
-                    self.frame_index = 0
-                    self.kill()
-
             self.image = frames[self.frame_index]
+        if self.state != 'dead' and now - self.last_attack >= self.attack_speed:
+            self.attack(self.game.bard)
+            self.last_attack = now
+
+    def attack(self, bard):
+        """Attaque le barde, lui infligeant des dégâts"""
+        if self.state != 'dead':
+            bard.take_damage(self.BASE_DAMAGE) #* (1 + (self.difficulte / 10)))
 
     def draw(self, surface):
         surface.blit(self.image, self.rect)
