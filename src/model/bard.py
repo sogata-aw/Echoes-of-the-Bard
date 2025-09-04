@@ -27,9 +27,12 @@ class Bard(pg.sprite.Sprite):
         self.drink_duration = 20  # durée en ticks (frames)
 
         # Barre de vie
+        self.frameHealth = init_sprite(os.path.join("assets", "frame.png"), -5, 680, (200,90))
         self.health_sprites = pygame.sprite.Group()
+        self.frameHealth.add(self.health_sprites)
+        print(self.frameHealth)
+        print(self.frameHealth.rect)
         self.update_hp()
-
 
     def drinkPotion(self):
         self.drinking = True
@@ -50,7 +53,8 @@ class Bard(pg.sprite.Sprite):
         for sprite in self.health_sprites:
             sprite.kill()
         self.health_sprites = pygame.sprite.Group() # Réinitialisation du groupe de sprite
+        self.frameHealth.add(self.health_sprites)
 
         for i in range(0,self.hp):
-            health = init_sprite(os.path.join("assets", "heart.svg"), 55 * i, 685, (75, 75))
+            health = init_sprite(os.path.join("assets", "heart.png"), 54 * i, 680, (75, 75))
             health.add(self.health_sprites)
