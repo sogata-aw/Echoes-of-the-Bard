@@ -50,9 +50,9 @@ def main():
     pg.quit()
 
 def addSprite(game,all_sprites):
-    all_sprites.add(game.bard)
     all_sprites.add(game.boss)
     all_sprites.add(game.bosshp)
+    all_sprites.add(game.bard)
     all_sprites.add(game.bard.health_sprites)
 if __name__ == "__main__":
     main()

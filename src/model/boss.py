@@ -21,17 +21,17 @@ class Boss(pg.sprite.Sprite):
 
         for i in range(0, 5):
             img = pg.image.load(os.path.join("assets","boss","ogre", f"frame_{i}.png")).convert_alpha()
-            img = pg.transform.scale_by(img, 0.5)
+            img = pg.transform.scale_by(img, 1.1)
             self.animations['basic'].append(img)
 
         for i in range(0,1):
             img = pg.image.load(os.path.join("assets", "boss", "ogre", "hurt", f"frame_{i}.png")).convert_alpha()
-            img = pg.transform.scale_by(img, 0.5)
+            img = pg.transform.scale_by(img, 1.1)
             self.animations['hurt'].append(img)
 
         for i in range(0,1):
             img = pg.image.load(os.path.join("assets", "boss", "ogre", "hurt", f"frame_{i}.png")).convert_alpha()
-            img = pg.transform.scale_by(img, 0.5)
+            img = pg.transform.scale_by(img, 1.1)
             self.animations['dead'].append(img)
 
         self.frame_index = 0

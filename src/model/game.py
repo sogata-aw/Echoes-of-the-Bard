@@ -18,12 +18,15 @@ class Game:
         self.background = pg.Surface(self.screen.get_size())
         self.background = pg.image.load(os.path.join("assets","menu_image.jpg"))
         self.background = pg.transform.scale(self.background, screen.get_size())
-        self.screen.blit(self.background, (0, 0))
 
         self.degatsTot=0
 
-        self.bard = Bard(y=500,x=100)
-        self.notesPos = [(200, 300), (300, 250), (400, 320), (500, 380)]
+        self.boss = Boss(x=350, y=-150)
+        self.bosshp = BossHp(self.boss)
+
+        self.bard = Bard(x=200, y=400)
+
+        self.notesPos = [(200, 250), (300, 250), (400, 320), (500, 380)]
         self.type_to_keys = {1:pg.K_w, 2:pg.K_x, 3:pg.K_c, 4:pg.K_v}
 
         # Difficulté
@@ -39,8 +42,6 @@ class Game:
         self.next_spawn = 0
         self.arm_global_timer()
 
-        self.boss = Boss(y=350,x=650)
-        self.bosshp = BossHp(self.boss)
         self.isEnded = False
 
     def active_types(self):
@@ -116,7 +117,6 @@ class Game:
 
     def draw(self):
         self.screen.blit(self.background, (0,0))
-        self.bard.draw(self.screen)
 
         i = 0
         while i < 4:

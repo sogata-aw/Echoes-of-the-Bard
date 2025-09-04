@@ -7,11 +7,14 @@ class Note(pg.sprite.Sprite):
         self.type = type
         # Images normales
         self.image = pg.transform.scale(pg.image.load(os.path.join("assets","notes", f"note-0{type}.svg")).convert_alpha(), (100, 100))
-        self.base_img = self.image.copy()
 
         # Image "gold"
         self.image_gold = pg.transform.scale(pg.image.load(os.path.join("assets", "notes", f"note-0{type}-golden.svg")).convert_alpha(), (100, 100))
+        if type == 3:
+            self.image = pg.transform.scale_by(self.image, 1.2)
+            self.image_gold = pg.transform.scale_by(self.image_gold, 1.2)
 
+        self.base_img = self.image.copy()
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
 

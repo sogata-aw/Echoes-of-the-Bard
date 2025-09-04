@@ -12,7 +12,7 @@ class Bard(pg.sprite.Sprite):
 
         # Image normale
         self.idle_image = pg.image.load(os.path.join("assets","bard","bard-front.png")).convert_alpha()
-        self.idle_image = pg.transform.scale_by(self.idle_image, 0.2)
+        self.idle_image = pg.transform.scale_by(self.idle_image, 0.5)
         self.rect = self.idle_image.get_rect(topleft=(x, y))
         self.image = self.idle_image
 
