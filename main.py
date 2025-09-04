@@ -26,7 +26,7 @@ def main():
                 running = False
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_SPACE:
-                    game.bard.drinkPotion()
+                    game.bard.invisible()
                 if event.key == pg.K_DOWN:
                     game.boss.take_damage(10)
                 if event.key == pg.K_b: # Pour tester les degat au barde
