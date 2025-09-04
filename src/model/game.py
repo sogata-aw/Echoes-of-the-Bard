@@ -1,7 +1,5 @@
 import random
-
 import os
-
 import pygame as pg
 from src.model.bard import Bard
 from src.model.boss import Boss
@@ -9,6 +7,7 @@ from src.model.inputUI import InputUi
 from src.model.bossHp import BossHp
 
 from src.model.note import Note
+from src.model.stateEnum import StateEnum
 
 
 class Game:
@@ -22,10 +21,10 @@ class Game:
 
         self.degatsTot=0
 
-        self.boss = Boss(x=400, y=-130, game=self, max_hp=100, difficulte=1, base_damage=1)
+        self.boss = Boss(x=400, y=100, game=self, max_hp=100, difficulte=1, base_damage=1)
         self.bosshp = BossHp(self.boss)
 
-        self.bard = Bard(x=100, y=400)
+        self.bard = Bard(x=30, y=400)
         self.inputUi = InputUi()
 
         self.notesPos = [(120, 250), (230, 250), (340, 290), (420, 380)]
