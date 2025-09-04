@@ -37,10 +37,12 @@ def main():
         # Maj de l'affichage
         #all_sprites.update()
 
+
+
+        game.update(all_sprites)
         screen.fill((30, 30, 30))
         screen.blit(game.background, (0, 0))
 
-        game.update(all_sprites)
         all_sprites.draw(screen)
 
         pg.display.flip()

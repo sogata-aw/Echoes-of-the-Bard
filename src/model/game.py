@@ -148,4 +148,5 @@ class Game:
         for note in self.notes:
             if note is not None and note.key == key and note.alive:
                 self.degatsTot += note.hit()
+                self.boss.take_damage(self.degatsTot)
                 print ("Score total:"+str(self.degatsTot))
