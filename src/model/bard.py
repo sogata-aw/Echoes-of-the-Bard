@@ -2,6 +2,7 @@ import os
 
 import pygame as pg
 import pygame.sprite
+from utilitaire import init_sprite
 
 
 
@@ -51,12 +52,5 @@ class Bard(pg.sprite.Sprite):
         self.health_sprites = pygame.sprite.Group() # Réinitialisation du groupe de sprite
 
         for i in range(0,self.hp):
-            health = pygame.sprite.Sprite()
-
-            health.image = pygame.image.load(os.path.join("assets", "heart.svg")).convert_alpha()
-            health.image = pygame.transform.scale(health.image, (75, 75))
-            health.rect = health.image.get_rect()
-
-            health.rect.topleft = (55 * i, 685)
-
+            health = init_sprite(os.path.join("assets", "heart.svg"),55 * i, 685, (75, 75))
             health.add(self.health_sprites)
