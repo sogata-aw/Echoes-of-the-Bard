@@ -2,7 +2,7 @@ import os
 import pygame as pg
 
 class Note(pg.sprite.Sprite):
-    def __init__(self,x,y,type):
+    def __init__(self,x,y,type, key):
         super().__init__()
         self.type = type
         # Images normales
@@ -21,6 +21,8 @@ class Note(pg.sprite.Sprite):
         self.perfect_start = None
         self.alive = True
         self.state = 0
+
+        self.key = key
         # Démarrer à 20% d'opacité
         self.image.set_alpha(int(0.2 * 255))
 
@@ -30,7 +32,7 @@ class Note(pg.sprite.Sprite):
 
         # Cas : déjà en mode "gold"
         if self.perfect_start is not None:
-            if now -self.perfect_start > 250:
+            if now - self.perfect_start > 250:
                 self.alive = False
             return
 
@@ -50,12 +52,29 @@ class Note(pg.sprite.Sprite):
 
         #Màj de la state
         percent = opacity * 100 / 255
-        if 20 <= percent <= 45:
+        if 20 <= percent <= 70:
             self.state = 1
-        elif 46 <= percent <= 95:
+        elif 71 <= percent <= 95:
             self.state = 2
         elif 96 <= percent <= 100:
             self.state = 3
+
+    def hit(self):
+        if not self.alive:
+            return 0
+
+        if self.state == 1:
+            degats = 1
+        elif self.state == 2:
+            degats = 5
+        elif self.state == 3:
+            degats = 10
+        else :
+            degats = 0
+
+        print (degats)
+        self.alive = False
+        return degats
 
     def draw(self, surface):
         if self.alive:
