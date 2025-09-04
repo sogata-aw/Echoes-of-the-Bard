@@ -17,7 +17,7 @@ class Game:
 
         # background
         self.background = pg.Surface(self.screen.get_size())
-        self.background = pg.image.load(os.path.join("assets","menu_image.jpg"))
+        self.background = pg.image.load(os.path.join("assets","combat_ogre_image.jpg"))
         self.background = pg.transform.scale(self.background, screen.get_size())
 
         self.degatsTot=0
