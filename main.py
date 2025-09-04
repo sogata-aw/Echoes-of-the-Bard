@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+ #!/usr/bin/env python
 import pygame as pg
 import src.model.game as g
 
@@ -53,5 +53,6 @@ def addSprite(game,all_sprites):
     all_sprites.add(game.bard)
     all_sprites.add(game.boss)
     all_sprites.add(game.bosshp)
+    all_sprites.add(game.bard.health_sprites)
 if __name__ == "__main__":
     main()

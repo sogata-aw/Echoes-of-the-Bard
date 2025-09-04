@@ -1,11 +1,14 @@
 import os
 
 import pygame as pg
+import pygame.sprite
+from pygame.sprite import Sprite
+
 
 class Bard(pg.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
-        self.pv = 100
+        self.pv = 3
 
         # Image normale
         self.idle_image = pg.image.load(os.path.join("assets","bard","bard-front.png")).convert_alpha()
@@ -22,6 +25,11 @@ class Bard(pg.sprite.Sprite):
         self.drink_timer = 0
         self.drink_duration = 20  # durée en ticks (frames)
 
+        # Barre de vie
+        self.health_sprites = pygame.sprite.Group()
+        self.update_hp()
+
+
     def drinkPotion(self):
         self.drinking = True
         self.drink_timer = 0
@@ -36,3 +44,17 @@ class Bard(pg.sprite.Sprite):
 
     def draw(self, surface):
         surface.blit(self.image, self.rect)
+
+    def update_hp(self) -> pygame.sprite.Group:
+        self.health_sprites.clear()
+
+        for i in range(0,self.pv):
+            health = pygame.sprite.Sprite()
+
+            health.image = pygame.image.load(os.path.join("assets", "heart.svg")).convert_alpha()
+            health.image = pygame.transform.scale(health.image, (75, 75))
+            health.rect = health.image.get_rect()
+
+            health.rect.topleft = (70 * i, 685)
+
+            health.add(self.health_sprites)
