@@ -115,6 +115,7 @@ class Game:
             if self.spawn_note():
                 self.arm_global_timer()
         listSprite.update()
+        self.bosshp.draw()
 
 
     def draw(self):
@@ -134,5 +135,5 @@ class Game:
             if note is not None and note.key == key and note.alive:
                 self.degatsTot += note.hit()
                 self.boss.take_damage(self.degatsTot)
-                self.bosshp.update()
+                self.bosshp.draw()
                 print ("Score total:"+str(self.degatsTot))

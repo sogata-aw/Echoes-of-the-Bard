@@ -17,7 +17,7 @@ def main():
     # Ajout sprite
     all_sprites = pg.sprite.Group()
     addSprite(game,all_sprites)
-
+    # pg.display.toggle_fullscreen()
     running = True
     while running:
         dt = clock.tick(60)

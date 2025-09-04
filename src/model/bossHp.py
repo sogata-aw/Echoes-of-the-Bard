@@ -19,6 +19,12 @@ class BossHp(pg.sprite.Sprite):
         self.update()
 
     def update(self):
+        # Supprimer la barre si le boss est mort
+        if self.boss.hp == 0:
+            self.kill()
+
+    def draw(self):
+        pg.draw.rect(self.image, (76, 69, 103), (120, 36, 507, 29))
         # dessiner le cadre
         self.image.blit(self.image, (0, 0))
         # Dessiner la barre
@@ -26,7 +32,4 @@ class BossHp(pg.sprite.Sprite):
         # Dessiner la barre verte (hp restant)
         if fill_width > 0:
             pg.draw.rect(self.image, (0, 255, 0), (120, 36, fill_width - 165, 29))
-        # Supprimer la barre si le boss est mort
-        if self.boss.hp == 0:
-            self.kill()
 
