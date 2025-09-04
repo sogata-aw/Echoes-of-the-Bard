@@ -14,10 +14,9 @@ def main():
     # Instance
     game = g.Game(screen)
 
-    # sprite
+    # Ajout sprite
     all_sprites = pg.sprite.Group()
-    all_sprites.add(game.bard)
-    all_sprites.add(game.note01)
+    addSprite(game,all_sprites)
 
     running = True
     while running:
@@ -26,14 +25,27 @@ def main():
             if event.type == pg.QUIT:
                 running = False
             if event.type == pg.KEYDOWN:
-                if event.key == pg.K_DOWN:
+                if event.key == pg.K_SPACE:
                     game.bard.drinkPotion()
+                if event.key == pg.K_DOWN:
+                    game.boss.take_damage(10)
+
+        # Maj de l'affichage
         all_sprites.update()
+        screen.fill((30, 30, 30))
+        screen.blit(game.background, (0, 0))
         all_sprites.draw(screen)
-        pg.display.flip()
         pg.display.flip()
         clock.tick(60)
     pg.quit()
 
+def addSprite(game,all_sprites):
+    all_sprites.add(game.bard)
+    all_sprites.add(game.boss)
+    all_sprites.add(game.note01)
+    all_sprites.add(game.note02)
+    all_sprites.add(game.note03)
+    all_sprites.add(game.note04)
+    all_sprites.add(game.bosshp)
 if __name__ == "__main__":
     main()
