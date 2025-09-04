@@ -94,10 +94,6 @@ class Game:
         return True
 
     def update(self, listSprite):
-        if self.degatsTot >= self.boss.hp: # TODO à changer en fonction des hp du boss
-            self.isEnded = True
-            return
-
         # 1) Update des notes existantes et nettoyage
         i = 0
         while i < 4:

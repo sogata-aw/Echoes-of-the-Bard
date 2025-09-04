@@ -28,8 +28,7 @@ class BossHp(pg.sprite.Sprite):
         # dessiner le cadre
         self.image.blit(self.image, (0, 0))
         # Dessiner la barre
-        fill_width = int((self.boss.hp / self.boss.max_hp) * self.width)
+        fill_width = int((self.boss.hp / self.boss.max_hp) * 507)
         # Dessiner la barre verte (hp restant)
-        if fill_width > 0:
-            pg.draw.rect(self.image, (0, 255, 0), (120, 36, fill_width - 165, 29))
+        pg.draw.rect(self.image, (0, 255, 0), (120, 36, fill_width, 29))
 

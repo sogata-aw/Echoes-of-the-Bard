@@ -31,17 +31,8 @@ def main():
                     game.boss.take_damage(10)
                 if event.key == pg.K_q:
                     running = False
-                if event.key == pg.K_a:
-                    pg.draw.polygon(screen, (0, 255, 255), ((25, 75), (320, 125), (250, 375)))
-
-                    pg.display.flip()
                 else:
                     game.handle_key(event.key)
-
-        # Maj de l'affichage
-        #all_sprites.update()
-
-
 
         game.update(all_sprites)
         screen.fill((30, 30, 30))
