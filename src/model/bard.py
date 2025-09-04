@@ -32,10 +32,16 @@ class Bard(pg.sprite.Sprite):
         self.update_hp()
 
     def invisible(self):
-        """ fait devenir le barde invisible et invulnerable pour un temp"""
+        """initialise la periode d'invisibilité"""
         self.state = 'invisible'
         self.invisible_timer = 0
         self.image.set_alpha(self.opacity)
+
+    def hurt(self):
+        """initialise la periode avec l'animation coup"""
+        self.state = 'hurt'
+        self.image = self.hurt_image
+        self.hurt_timer = 0
 
     def update(self):
         match self.state:
@@ -45,12 +51,9 @@ class Bard(pg.sprite.Sprite):
                 if self.image == self.hurt_image:
                     self.image = self.alive_image
             case 'hurt':
-                if self.hurt_timer == 0:
-                    self.image = self.hurt_image
                 self.hurt_timer += 1
                 if self.hurt_timer >= self.hurt_duration:
                     self.state = 'alive'
-                    self.hurt_timer = 0
                     self.image = self.alive_image
             case 'invisible':
                 self.invisible_timer += 1
@@ -60,13 +63,16 @@ class Bard(pg.sprite.Sprite):
         self.update_hp()
 
     def draw(self, surface):
-        surface.blit(self.image, self.rect)
+        # Affiche le Barde si il est vivant
+        if self.state != 'dead':
+            surface.blit(self.image, self.rect)
+        # Affiche la barre de vie
         self.health_sprites.draw(surface)
 
     def take_damage(self, amount):
         """Inflige des dégâts au barde"""
         if self.state != 'invisible':
-            self.state = 'hurt'
+            self.hurt()
             self.hp -= amount
             if self.hp <= 0:
                 self.hp=0

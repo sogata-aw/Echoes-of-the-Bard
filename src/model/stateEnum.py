@@ -1,7 +1,7 @@
 from enum import Enum
 
 class StateEnum(Enum):
-    paused = "paused"
+    closing = "closing"
     playing = "playing"
     in_menu = "in_menu"
     in_credit = "in_credit"

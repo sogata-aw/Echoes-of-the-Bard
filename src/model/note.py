@@ -67,22 +67,19 @@ class Note(pg.sprite.Sprite):
             self.state = 3
 
     def hit(self) -> int:
+        degats = 0
         if not self.alive:
-            return 0
-
-        if self.state == 1:
-            pg.mixer.Sound.play(self.note_sound)
-            degats = 1
-        elif self.state == 2:
-            pg.mixer.Sound.play(self.note_sound)
-            degats = 5
-        elif self.state == 3:
-            pg.mixer.Sound.play(self.note_sound)
-            degats = 10
-        else :
-            degats = 0
-
-        print (degats)
+            return degats
+        match self.state:
+            case 1:
+                pg.mixer.Sound.play(self.note_sound)
+                degats = 1
+            case 2:
+                pg.mixer.Sound.play(self.note_sound)
+                degats = 5
+            case 3:
+                pg.mixer.Sound.play(self.note_sound)
+                degats = 10
         self.alive = False
         self.kill()
         return degats
