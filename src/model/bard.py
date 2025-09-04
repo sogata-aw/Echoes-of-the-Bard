@@ -2,7 +2,6 @@ import os
 
 import pygame as pg
 import pygame.sprite
-from pygame.sprite import Sprite
 
 
 class Bard(pg.sprite.Sprite):
