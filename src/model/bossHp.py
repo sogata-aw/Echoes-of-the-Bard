@@ -1,3 +1,5 @@
+import os.path
+
 import pygame as pg
 
 class BossHp(pg.sprite.Sprite):
@@ -5,20 +7,26 @@ class BossHp(pg.sprite.Sprite):
         super().__init__()
         self.boss = boss
         self.width = boss.rect.width
-        self.height = 6
+        self.height = 100
+
+        # Charger le cadre décoratif
+        self.cadre = pg.image.load(os.path.join("assets","boss","ogre","hp", "bar.png")).convert_alpha()
+        self.cadre = pg.transform.scale(self.cadre, (self.width, self.height))
+
         self.image = pg.Surface((self.width, self.height))
         self.rect = self.image.get_rect()
+        self.rect.topleft = (self.boss.rect.x, self.boss.rect.y - 10)
+
         self.update()
 
     def update(self):
-        # Mettre à jour la position au-dessus du boss
-        self.rect.topleft = (self.boss.rect.x, self.boss.rect.y - 10)
+        # dessiner le cadre
+        self.image.blit(self.cadre, (0, 0))
         # Dessiner la barre
-        self.image.fill((255, 0, 0))  # fond rouge
         fill_width = int((self.boss.hp / self.boss.max_hp) * self.width)
+        # Dessiner la barre verte (hp restant)
         if fill_width > 0:
-            pg.draw.rect(self.image, (0, 255, 0), (0, 0, fill_width, self.height))
-
+            pg.draw.rect(self.image, (0, 255, 0), (10, 10, fill_width -50, self.height -50))
         # Supprimer la barre si le boss est mort
         if self.boss.hp == 0:
             self.kill()
