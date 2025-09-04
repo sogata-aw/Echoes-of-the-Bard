@@ -52,5 +52,5 @@ class Bard(pg.sprite.Sprite):
         self.health_sprites = pygame.sprite.Group() # Réinitialisation du groupe de sprite
 
         for i in range(0,self.hp):
-            health = init_sprite(os.path.join("assets", "heart.svg"),55 * i, 685, (75, 75))
+            health = init_sprite(os.path.join("assets", "heart.svg"), 55 * i, 685, (75, 75))
             health.add(self.health_sprites)
