@@ -4,10 +4,11 @@ import pygame as pg
 import pygame.sprite
 
 
+
 class Bard(pg.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
-        self.pv = 3
+        self.hp = 3
 
         # Image normale
         self.idle_image = pg.image.load(os.path.join("assets","bard","bard-front.png")).convert_alpha()
@@ -47,7 +48,7 @@ class Bard(pg.sprite.Sprite):
     def update_hp(self):
         self.health_sprites = pygame.sprite.Group()
 
-        for i in range(0,self.pv):
+        for i in range(0,self.hp):
             health = pygame.sprite.Sprite()
 
             health.image = pygame.image.load(os.path.join("assets", "heart.svg")).convert_alpha()
