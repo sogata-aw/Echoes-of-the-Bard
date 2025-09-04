@@ -46,7 +46,9 @@ class Bard(pg.sprite.Sprite):
         surface.blit(self.image, self.rect)
 
     def update_hp(self):
-        self.health_sprites = pygame.sprite.Group()
+        for sprite in self.health_sprites:
+            sprite.kill()
+        self.health_sprites = pygame.sprite.Group() # Réinitialisation du groupe de sprite
 
         for i in range(0,self.hp):
             health = pygame.sprite.Sprite()
