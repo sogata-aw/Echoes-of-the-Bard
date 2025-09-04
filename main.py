@@ -29,6 +29,8 @@ def main():
                     game.bard.drinkPotion()
                 if event.key == pg.K_DOWN:
                     game.boss.take_damage(10)
+                if event.key == pg.K_q:
+                    running = False
                 else:
                     game.handle_key(event.key)
 
