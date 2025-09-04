@@ -14,7 +14,7 @@ class BossHp(pg.sprite.Sprite):
         self.image = pg.transform.scale(self.image, (self.width, self.height))
 
         self.rect = self.image.get_rect()
-        self.rect.topleft = (self.boss.rect.x - 45, self.boss.rect.y +150)
+        self.rect.topleft = (self.boss.rect.x - 45, self.boss.rect.y - 75)
 
         self.update()
 
