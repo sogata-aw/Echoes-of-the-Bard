@@ -19,7 +19,6 @@ class Game:
         self.background = pg.image.load(os.path.join("assets","combat_ogre_image.jpg"))
         self.background = pg.transform.scale(self.background, screen.get_size())
 
-        self.degatsTot=0
 
         self.boss = Boss(x=400, y=100, game=self, max_hp=100, difficulte=1, base_damage=1)
         self.bosshp = BossHp(self.boss)
@@ -115,7 +114,5 @@ class Game:
     def handle_key(self, key):
         for note in self.notes:
             if note is not None and note.key == key and note.alive:
-                self.degatsTot += note.hit()
                 self.boss.take_damage(note.hit())
                 self.bosshp.draw()
-                print ("Score total:"+str(self.degatsTot))
