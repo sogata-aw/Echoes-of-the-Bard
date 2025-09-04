@@ -63,7 +63,7 @@ class Note(pg.sprite.Sprite):
         elif 96 <= percent <= 100:
             self.state = 3
 
-    def hit(self):
+    def hit(self) -> int:
         if not self.alive:
             return 0
 
