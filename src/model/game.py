@@ -21,18 +21,18 @@ class Game:
 
         self.degatsTot=0
 
-        self.boss = Boss(x=350, y=-150)
+        self.boss = Boss(x=400, y=-130)
         self.bosshp = BossHp(self.boss)
 
-        self.bard = Bard(x=200, y=400)
+        self.bard = Bard(x=100, y=400)
 
-        self.notesPos = [(200, 250), (300, 250), (400, 320), (500, 380)]
+        self.notesPos = [(120, 250), (230, 250), (340, 290), (420, 380)]
         self.type_to_keys = {1:pg.K_w, 2:pg.K_x, 3:pg.K_c, 4:pg.K_v}
 
         # Difficulté
         # TODO à changer en fonction de la difficulté du boss
         # if easy
-        self.min_delay, self.max_delay = 2000, 3000 #ms
+        self.min_delay, self.max_delay = 2000, 2500 #ms
         # if normal (2000,3500)
         # if normal (1000,2000)
 
