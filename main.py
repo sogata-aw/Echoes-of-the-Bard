@@ -20,7 +20,7 @@ def main():
     # pg.display.toggle_fullscreen()
     running = True
     while running:
-        dt = clock.tick(60)
+        clock.tick(60)
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 running = False
@@ -29,6 +29,8 @@ def main():
                     game.bard.drinkPotion()
                 if event.key == pg.K_DOWN:
                     game.boss.take_damage(10)
+                if event.key == pg.K_F11:
+                    pg.display.toggle_fullscreen()
                 if event.key == pg.K_q:
                     running = False
                 else:

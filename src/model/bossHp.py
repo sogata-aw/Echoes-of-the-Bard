@@ -32,3 +32,6 @@ class BossHp(pg.sprite.Sprite):
         # Dessiner la barre verte (hp restant)
         pg.draw.rect(self.image, (0, 255, 0), (120, 36, fill_width, 29))
 
+        if self.boss.hp == 0:
+            self.kill()
+
