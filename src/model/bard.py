@@ -10,6 +10,7 @@ class Bard(pg.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
         self.hp = 3
+        self.state = 'alive' # 'alive','invisible' ,'dead'
 
         # Image normale
         self.idle_image = pg.image.load(os.path.join("assets","bard","bard-front.png")).convert_alpha()
@@ -45,9 +46,22 @@ class Bard(pg.sprite.Sprite):
             if self.drink_timer >= self.drink_duration:
                 self.drinking = False
                 self.image = self.idle_image
+        self.update_hp()
 
     def draw(self, surface):
         surface.blit(self.image, self.rect)
+
+    def take_damage(self, amount):
+        """Inflige des dégâts au boss"""
+        if self.state != 'dead':
+            if amount > self.hp:
+                self.hp = 0
+            else:
+                self.hp -= amount
+            if self.hp == 0:
+                self.state = 'dead'
+        self.update_hp()
+
 
     def update_hp(self):
         for sprite in self.health_sprites:
