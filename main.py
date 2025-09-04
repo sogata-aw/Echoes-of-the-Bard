@@ -54,5 +54,6 @@ def addSprite(game,all_sprites):
     all_sprites.add(game.bosshp)
     all_sprites.add(game.bard)
     all_sprites.add(game.bard.health_sprites)
+    all_sprites.add(game.inputUi.input_group)
 if __name__ == "__main__":
     main()

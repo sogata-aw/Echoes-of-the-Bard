@@ -5,6 +5,7 @@ import os
 import pygame as pg
 from src.model.bard import Bard
 from src.model.boss import Boss
+from src.model.inputUI import InputUi
 from src.model.bossHp import BossHp
 
 from src.model.note import Note
@@ -25,6 +26,7 @@ class Game:
         self.bosshp = BossHp(self.boss)
 
         self.bard = Bard(x=100, y=400)
+        self.inputUi = InputUi()
 
         self.notesPos = [(120, 250), (230, 250), (340, 290), (420, 380)]
         self.type_to_keys = {1:pg.K_w, 2:pg.K_x, 3:pg.K_c, 4:pg.K_v}
