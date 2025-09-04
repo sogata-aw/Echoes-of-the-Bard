@@ -112,17 +112,6 @@ class Game:
         listSprite.update()
         self.bosshp.draw()
 
-
-    def draw(self):
-        self.screen.blit(self.background, (0,0))
-
-        i = 0
-        while i < 4:
-            n = self.notes[i]
-            if n is not None:
-                n.draw(self.screen)
-            i += 1
-
     def handle_key(self, key):
         for note in self.notes:
             if note is not None and note.key == key and note.alive:

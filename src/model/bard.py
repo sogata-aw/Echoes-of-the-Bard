@@ -1,10 +1,6 @@
 import os
-
 import pygame as pg
-import pygame.sprite
 from utilitaire import init_sprite
-
-
 
 class Bard(pg.sprite.Sprite):
     def __init__(self, x, y):
@@ -27,12 +23,8 @@ class Bard(pg.sprite.Sprite):
         self.drink_timer = 0
         self.drink_duration = 20  # durée en ticks (frames)
 
-        # Barre de vie
-        self.frameHealth = init_sprite(os.path.join("assets", "frame.png"), -5, 680, (200,90))
-        self.health_sprites = pygame.sprite.Group()
-        self.frameHealth.add(self.health_sprites)
-        print(self.frameHealth)
-        print(self.frameHealth.rect)
+        # Groupe de Sprite de la Barre de vie
+        self.health_sprites = pg.sprite.Group()
         self.update_hp()
 
     def drinkPotion(self):
@@ -50,25 +42,24 @@ class Bard(pg.sprite.Sprite):
 
     def draw(self, surface):
         surface.blit(self.image, self.rect)
+        self.health_sprites.draw(surface)
 
     def take_damage(self, amount):
         """Inflige des dégâts au boss"""
-        if self.state != 'dead':
-            if amount > self.hp:
-                self.hp = 0
-            else:
-                self.hp -= amount
-            if self.hp == 0:
-                self.state = 'dead'
-        self.update_hp()
-
+        self.hp -= amount
+        if self.hp <= 0:
+            self.hp=0
+            self.state = 'dead'
+        print(f"status: {self.state} pv:{self.hp}")
 
     def update_hp(self):
-        for sprite in self.health_sprites:
-            sprite.kill()
-        self.health_sprites = pygame.sprite.Group() # Réinitialisation du groupe de sprite
-        self.frameHealth.add(self.health_sprites)
-
-        for i in range(0,self.hp):
+        """Met a jour les vies du bard"""
+        # Vide le groupe
+        self.health_sprites.empty()
+        # Ajoute le cadre
+        self.health_sprites.add(init_sprite(os.path.join("assets", "frame.png"), -5, 680, (200, 90)))
+        # Ajoute les coeurs
+        for i in range(self.hp):
+            print(self.hp)
             health = init_sprite(os.path.join("assets", "heart.png"), 54 * i, 680, (75, 75))
-            health.add(self.health_sprites)
+            self.health_sprites.add(health)
