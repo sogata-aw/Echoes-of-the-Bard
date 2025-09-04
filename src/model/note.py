@@ -34,6 +34,7 @@ class Note(pg.sprite.Sprite):
         if self.perfect_start is not None:
             if now - self.perfect_start > 250:
                 self.alive = False
+                self.kill()
             return
 
         cooldown = now - self.start_time
@@ -74,6 +75,7 @@ class Note(pg.sprite.Sprite):
 
         print (degats)
         self.alive = False
+        self.kill()
         return degats
 
     def draw(self, surface):

@@ -24,7 +24,7 @@ class Game:
 
         self.bard = Bard(y=100,x=100)
         self.notesPos = [(200, 300), (300, 250), (400, 320), (500, 380)]
-        self.keys = [pg.K_q, pg.K_z, pg.K_s, pg.K_d]
+        self.keys = [pg.K_w, pg.K_x, pg.K_c, pg.K_v]
 
         # Difficulté
         # TODO à changer en fonction de la difficulté du boss
@@ -148,4 +148,4 @@ class Game:
         for note in self.notes:
             if note is not None and note.key == key and note.alive:
                 self.degatsTot += note.hit()
-                print ("Score totale:"+str(self.degatsTot))
+                print ("Score total:"+str(self.degatsTot))
