@@ -22,31 +22,23 @@ class Game:
 
         self.degatsTot=0
 
-        self.bard = Bard(y=100,x=100)
+        self.bard = Bard(y=500,x=100)
         self.notesPos = [(200, 300), (300, 250), (400, 320), (500, 380)]
-        self.keys = [pg.K_w, pg.K_x, pg.K_c, pg.K_v]
+        self.type_to_keys = {1:pg.K_w, 2:pg.K_x, 3:pg.K_c, 4:pg.K_v}
 
         # Difficulté
         # TODO à changer en fonction de la difficulté du boss
         # if easy
-        self.min_delay, self.max_delay = 5000, 7000 #ms
+        self.min_delay, self.max_delay = 2000, 3000 #ms
         # if normal (2000,3500)
         # if normal (1000,2000)
 
         # Notes actives
         self.notes = [None, None, None, None]
-        self.next_ready = [0, 0, 0, 0]
 
-        now = pg.time.get_ticks()
+        self.next_spawn = 0
+        self.arm_global_timer()
 
-        first_slot = random.randint(0,3)
-        self.spawn_in_slot(first_slot)
-
-        # On démarre le timer
-        i = 0
-        while i < 4:
-            self.arm_timer(i, now)
-            i+=1
         self.boss = Boss(y=350,x=650)
         self.bosshp = BossHp(self.boss)
         self.isEnded = False
@@ -54,15 +46,13 @@ class Game:
     def active_types(self):
         # Retourne les types de note déjà utilisés par les notes actives
         types = []
-        i = 0
-        while i < 4:
-            n = self.notes[i]
+        for n in self.notes:
             if n is not None and n.alive:
                 types.append(n.type)
-            i += 1
         return types
 
     def choose_type(self):
+        # Choisit un type libre
         used = self.active_types()
         possible = []
         t = 1
@@ -70,29 +60,34 @@ class Game:
             if t not in used:
                 possible.append(t)
             t +=1
-        if len(possible) == 0:
+        if not possible:
             return None
         return random.choice(possible)
 
-    def arm_timer(self, slot, base_time=None):
-        if base_time is None:
-            base_time = pg.time.get_ticks()
+    def arm_global_timer(self):
+        # Planifie le prochain spawn global
         delay = random.randint(self.min_delay, self.max_delay)
-        self.next_ready[slot] = base_time + delay
+        self.next_spawn = pg.time.get_ticks() + delay
 
-    def spawn_in_slot(self, slot):
-        # pas de spawn si note déjà là
-        if self.notes[slot] is not None and self.notes[slot].alive:
-            return False
+    def spawn_note(self):
         # pas deux notes du même type en même temps
         note_type = self.choose_type()
         if note_type is None:
             return False
+
+        empty_slots = []
+        i = 0
+        while i < 4:
+            if self.notes[i] is None or not self.notes[i].alive:
+                empty_slots.append(i)
+            i += 1
+        if not empty_slots:
+            return False
+
+        slot = random.choice(empty_slots)
         pos = self.notesPos[slot]
-        key = self.keys[slot]
+        key = self.type_to_keys[note_type]
         self.notes[slot] = Note(pos[0], pos[1], note_type,key)
-        # On arme le prochain timer de ce slot
-        self.arm_timer(slot)
         return True
 
     def update(self, listSprite):
@@ -113,21 +108,9 @@ class Game:
 
         # 2) Spawns différés : au plus UN spawn par frame
         now = pg.time.get_ticks()
-        spawned_this_frame = False
-
-        order = [0, 1, 2, 3]
-        random.shuffle(order)
-
-        k = 0
-        while k < 4:
-            i = order[k]
-            # slot vide et timer prêt
-            if not spawned_this_frame:
-                if self.notes[i] is None:
-                    if self.next_ready[i] != 0 and now >= self.next_ready[i]:
-                        if self.spawn_in_slot(i):
-                            spawned_this_frame = True
-            k += 1
+        if now >= self.next_spawn:
+            if self.spawn_note():
+                self.arm_global_timer()
         listSprite.update()
 
 
