@@ -6,11 +6,11 @@ class Menu:
         self.selected_option = 0  # 0 = Play, 1 = Quit, 2 = Credit
 
         # --- Constantes ---
-        self.BTN_SIZE = (800, 400)
+        self.BTN_SIZE = (300, 150)
         self.BTN_X = self.screen.get_width() // 2 - self.BTN_SIZE[0] // 2
         self.PLAY_Y = 130
-        self.QUIT_Y = 230
-        self.CREDIT_Y = 330
+        self.QUIT_Y = 290
+        self.CREDIT_Y = 450
 
         # --- Fond ---
         menu_img = pg.image.load("assets/menu_image.jpg")
