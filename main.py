@@ -46,9 +46,9 @@ def main():
                             match menu.selected_option:
                                 case 0:
                                     game_state = StateEnum.playing
-                                case 1:
-                                    running = False
                                 case 2:
+                                    running = False
+                                case 1:
                                     game_state = StateEnum.in_credit
                 # Event dans l'écran de jeu
                 elif game_state == StateEnum.playing:

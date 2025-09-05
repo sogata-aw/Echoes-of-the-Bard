@@ -11,8 +11,8 @@ class Menu:
         self.BTN_SIZE = (300, 150)
         self.BTN_X = self.screen.get_width() // 2 - self.BTN_SIZE[0] // 2
         self.PLAY_Y = 130
-        self.QUIT_Y = 290
-        self.CREDIT_Y = 450
+        self.QUIT_Y = 450
+        self.CREDIT_Y = 290
 
         # --- Fond ---
         menu_img = pg.image.load("assets/img_menu.jpeg")
@@ -64,13 +64,13 @@ class Menu:
             self.screen.blit(self.btn_play, (self.BTN_X, self.PLAY_Y))
 
         # --- Bouton Quit ---
-        if self.selected_option == 1:
+        if self.selected_option == 2:
             self.screen.blit(self.btn_quit_selected, (self.BTN_X, self.QUIT_Y))
         else:
             self.screen.blit(self.btn_quit, (self.BTN_X, self.QUIT_Y))
 
         # --- Bouton Credit ---
-        if self.selected_option == 2:
+        if self.selected_option == 1:
             self.screen.blit(self.btn_credit_selected, (self.BTN_X, self.CREDIT_Y))
         else:
             self.screen.blit(self.btn_credit, (self.BTN_X, self.CREDIT_Y))
