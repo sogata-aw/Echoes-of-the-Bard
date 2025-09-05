@@ -57,6 +57,8 @@ def main():
                             game.boss.take_damage(10)  # Pour tester les degat au boss
                         case pg.K_b:
                             game.bard.take_damage(1)  # Pour tester les degat au barde
+                        case pg.K_j:
+                            game.spawnfireball(all_sprites)
                         case pg.K_ESCAPE:
                             game_state = StateEnum.in_menu # Mettre en pause
                         case _:
