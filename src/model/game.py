@@ -31,10 +31,6 @@ class Game:
         # if normal (2000,3500)
         # if normal (1000,2000)
 
-        # --- Musique ---
-        pg.mixer.music.load(os.path.join("sounds", "music", f"battle-song.mp3"))
-        pg.mixer.music.play(-1)
-
         # --- Effet sonore ---
         self.hit_sound = pg.mixer.Sound(os.path.join("sounds", "sound_effect", "note01.mp3"))
         self.hit_sound.set_volume(0.3)

@@ -1,4 +1,4 @@
- #!/usr/bin/env python
+import os  #!/usr/bin/env python
 import pygame as pg
 import src.model.game as g
 import src.model.menu as m
@@ -45,6 +45,9 @@ def main():
                         case pg.K_RETURN:
                             match menu.selected_option:
                                 case 0:
+                                    menu.stop_music()
+                                    pg.mixer.music.load(os.path.join("sounds", "music", f"battle-song.mp3"))
+                                    pg.mixer.music.play(-1)
                                     game_state = StateEnum.playing
                                 case 2:
                                     running = False
