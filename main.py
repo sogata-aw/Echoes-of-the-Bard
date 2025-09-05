@@ -83,8 +83,7 @@ def main():
         elif game_state == StateEnum.playing:
             game.update(all_sprites)
             game.draw(all_sprites)
-            # Verification de l'état du jeu
-            if game.bard.state == 'dead' or game.boss.state == 'dead':
+            if game.isfinish():
                 game_state = StateEnum.finished
         # Update et Draw de l'écran de Victoir/Défaite
         elif game_state == StateEnum.finished:

@@ -3,7 +3,7 @@ import pygame as pg
 class Menu:
     def __init__(self, screen: pg.Surface):
         self.screen = screen
-        self.selected_option = 0  # 0 = Play, 1 = Quit
+        self.selected_option = 0  # 0 = Play, 1 = Quit, 2 = Credit
 
         # --- Constantes ---
         self.BTN_SIZE = (800, 400)
