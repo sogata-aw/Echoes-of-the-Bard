@@ -75,9 +75,9 @@ class Boss(pg.sprite.Sprite):
                     self.state = 'basic'
                     self.frame_index = 0
             self.image = frames[self.frame_index]
-        if self.state != 'dead' and now - self.last_attack >= self.attack_speed:
-            self.attack(self.game.bard)
-            self.last_attack = now
+        # if self.state != 'dead' and now - self.last_attack >= self.attack_speed:
+        #     self.attack(self.game.bard)
+        #     self.last_attack = now
 
     def attack(self, bard):
         """Attaque le barde, lui infligeant des dégâts"""

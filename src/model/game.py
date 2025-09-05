@@ -110,7 +110,11 @@ class Game:
                 self.arm_global_timer()
         listSprite.update()
         self.bosshp.draw()
-
+    def draw(self, listSprite):
+        self.screen.fill((0, 0, 0))
+        self.screen.blit(self.background, (0, 0))
+        listSprite.draw(self.screen)
+        self.bard.draw(self.screen)
     def handle_key(self, key):
         for note in self.notes:
             if note is not None and note.key == key and note.alive:

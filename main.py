@@ -7,58 +7,32 @@ from src.model.stateEnum import StateEnum
 
 def main():
     pg.init()
-    pg.display.set_caption("Jeux") # nom fenêtre
+    pg.display.set_caption("Jeux super mega bien") # nom fenêtre
     screen_size = (1024, 768) # Taille écran
     screen = pg.display.set_mode(screen_size)
     clock = pg.time.Clock() # horloge
-    dt = 0 # Nombre de millisecondes entre deux images
 
     # Etat
     game_state = StateEnum.in_menu
+
     # Instance
     game = g.Game(screen)
     menu = m.Menu(screen)
     fin = f.Fin(screen)
 
-    # Ajout sprite
+    # Ajout sprite de l'ecran de jeu dans all_sprite
     all_sprites = pg.sprite.Group()
     addSprite(game,all_sprites)
 
-    while game_state != StateEnum.closing:
-        while game_state == StateEnum.playing:
-            for event in pg.event.get():
-                if event.type == pg.QUIT:
-                    game_state = StateEnum.closing
-                if event.type == pg.KEYDOWN:
-                    match event.key:
-                        case pg.K_SPACE:
-                            game.bard.invisible()
-                        case pg.K_DOWN:
-                            game.boss.take_damage(10) #Pour tester les degat au boss
-                        case pg.K_b:
-                            game.bard.take_damage(1)# Pour tester les degat au barde
-                        case pg.K_F11:
-                            pg.display.toggle_fullscreen()
-                        case pg.K_ESCAPE:
-                            game_state = StateEnum.in_menu
-                        case _:
-                            game.handle_key(event.key)
-            game.update(all_sprites)
-            screen.fill((0, 0, 0))
-            screen.blit(game.background, (0, 0))
-            all_sprites.draw(screen)
-            game.bard.draw(screen)
-            pg.display.flip()
-            clock.tick(60)
-            if game.bard.state == 'dead' or game.boss.state == 'dead':
-                game_state = StateEnum.finished
-
-        while game_state != StateEnum.closing and game_state == StateEnum.in_menu:
-            for event in pg.event.get():
-                # QUIT signifie que l'utilisateur a fermé la fenêtre
-                if event.type == pg.QUIT:
-                    game_state = StateEnum.closing
-                if event.type == pg.KEYDOWN:
+    running = True
+    while running:
+        # --- Gestion des événements selon l'état---
+        for event in pg.event.get():
+            if event.type == pg.QUIT: # Fermer le Jeu
+                running = False
+            if event.type == pg.KEYDOWN:
+                # Event dans le menu
+                if game_state == StateEnum.in_menu:
                     match event.key:
                         case pg.K_DOWN:
                             menu.selected_option = 1
@@ -68,27 +42,49 @@ def main():
                             if menu.selected_option == 0:
                                 game_state = StateEnum.playing
                             elif menu.selected_option == 1:
-                                game_state = StateEnum.closing
-            menu.update()
-            pg.display.flip()
-            clock.tick(60)
-
-        while game_state != StateEnum.closing and game_state == StateEnum.finished:
-            for event in pg.event.get():
-                if event.type == pg.QUIT:
-                    game_state = StateEnum.closing
-                if event.type == pg.KEYDOWN:
+                                running = False
+                # Event dans l'écran de jeu
+                elif game_state == StateEnum.playing:
+                    match event.key:
+                        case pg.K_SPACE:
+                            game.bard.invisible()
+                        case pg.K_DOWN:
+                            game.boss.take_damage(10)  # Pour tester les degat au boss
+                        case pg.K_b:
+                            game.bard.take_damage(1)  # Pour tester les degat au barde
+                        case pg.K_ESCAPE:
+                            game_state = StateEnum.in_menu # Mettre en pause
+                        case _:
+                            game.handle_key(event.key)
+                # Event de l'écran de Victoire/Défaite
+                elif game_state == StateEnum.finished:
                     match event.key:
                         case pg.K_SPACE:
                             # Reinitialisation de la partie
-                            game = g.Game(screen)
                             all_sprites.empty()
+                            game = g.Game(screen)
+                            addSprite(game, all_sprites)
                             # retour au menu
                             game_state = StateEnum.in_menu
+
+        #---- Mise à jour et dessin selon l'état ---
+        # Update et Draw du Menu
+        if game_state == StateEnum.in_menu:
+            menu.draw()
+        # Update et Draw de l'écran de jeux
+        elif game_state == StateEnum.playing:
+            game.update(all_sprites)
+            game.draw(all_sprites)
+            # Verification de l'état du jeu
+            if game.bard.state == 'dead' or game.boss.state == 'dead':
+                game_state = StateEnum.finished
+        # Update et Draw de l'écran de Victoir/Défaite
+        elif game_state == StateEnum.finished:
             fin.update(game)
-            addSprite(game,all_sprites)
-            pg.display.flip()
-            clock.tick(60)
+            fin.draw()
+
+        pg.display.flip()
+        clock.tick(60)
     pg.quit()
 
 def addSprite(game,all_sprites):

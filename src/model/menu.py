@@ -21,7 +21,7 @@ class Menu:
         self.btn_quit = pg.transform.scale(pg.image.load("assets/buttons/quit_button.png"), self.BTN_SIZE)
         self.btn_quit_selected = pg.transform.scale(pg.image.load("assets/buttons/quit_button_choosen.png"), self.BTN_SIZE)
 
-    def update(self):
+    def draw(self):
         """Affiche le menu à l’écran"""
         self.screen.blit(self.background, (0, 0))
 
