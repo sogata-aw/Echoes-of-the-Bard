@@ -36,6 +36,7 @@ class Game:
 
         self.next_spawn = 0
         self.arm_global_timer()
+        pg.mixer.music.stop()
 
     def isfinish(self):
         """Indique si la partie est finie"""

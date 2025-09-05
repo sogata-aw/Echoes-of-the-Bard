@@ -1,3 +1,5 @@
+import os
+
 import pygame as pg
 
 class Menu:
@@ -15,6 +17,9 @@ class Menu:
         # --- Fond ---
         menu_img = pg.image.load("assets/menu_image.jpg")
         self.background = pg.transform.scale(menu_img, screen.get_size())
+
+        # --- Musique ---
+        self.menu_sound = pg.mixer.Sound(os.path.join("sounds", "music", f"menu-song.mp3"))
 
         # --- Boutons ---
         self.btn_play = pg.transform.scale(pg.image.load("assets/buttons/play_button.png"), self.BTN_SIZE)
@@ -37,6 +42,7 @@ class Menu:
     def draw(self):
         """Affiche le menu à l’écran"""
         self.screen.blit(self.background, (0, 0))
+        pg.mixer.Sound.play(self.menu_sound)
 
         # --- Bouton Play ---
         if self.selected_option == 0:

@@ -19,7 +19,7 @@ class Note(pg.sprite.Sprite):
         self.rect.topleft = (x, y)
 
         # Son
-        self.note_sound = pg.mixer.Sound(os.path.join("sounds", "sound_effect", f"note_sound.wav"))
+        self.note_sound = pg.mixer.Sound(os.path.join("sounds", "sound_effect", f"note01.mp3"))
 
         # Animation
         self.start_time = pg.time.get_ticks() #temps où la note est créée
