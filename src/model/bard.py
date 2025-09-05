@@ -26,6 +26,8 @@ class Bard(pg.sprite.Sprite):
         self.opacity = 51 #opacité du barde quand il est "invisible"
         self.invisible_timer = 0
         self.invisible_duration = 50  # durée en ticks (frames)
+        self.last_invisible = 0# dérniére uttilisation du mode invisible
+        self.cd_invisible = 3000# cooldown avant réutilisation su mode invisible
 
         # Groupe de Sprite de la Barre de vie
         self.health_sprites = pg.sprite.Group()
@@ -33,9 +35,12 @@ class Bard(pg.sprite.Sprite):
 
     def invisible(self):
         """initialise la periode d'invisibilité"""
-        self.state = 'invisible'
-        self.invisible_timer = 0
-        self.image.set_alpha(self.opacity)
+        # Applique un cooldown
+        if (pg.time.get_ticks() - self.last_invisible) > self.cd_invisible:
+            self.last_invisible = pg.time.get_ticks()
+            self.state = 'invisible'
+            self.invisible_timer = 0
+            self.image.set_alpha(self.opacity)
 
     def hurt(self):
         """initialise la periode avec l'animation coup"""

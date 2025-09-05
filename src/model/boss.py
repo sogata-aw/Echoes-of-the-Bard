@@ -1,8 +1,11 @@
 import pygame as pg
 import os
 
+from src.model.BossEnum import BossEnum
+
+
 class Boss(pg.sprite.Sprite):
-    def __init__(self, x, y,game, max_hp=1000, difficulte=1, base_damage=1):
+    def __init__(self, x, y,game, max_hp=1000, difficulte=1, base_damage=1, type=BossEnum.ogre):
         super().__init__()
 
         # HP
@@ -19,23 +22,28 @@ class Boss(pg.sprite.Sprite):
         self.animations = {
             'basic': [],
             'hurt': [],
-            'dead': [],
         }
 
-        for i in range(0, 5):
-            img = pg.image.load(os.path.join("assets","boss","ogre", f"frame_{i}.png")).convert_alpha()
-            img = pg.transform.scale_by(img, 1.0)
-            self.animations['basic'].append(img)
+        if type == BossEnum.ogre:
+            for i in range(0, 5):
+                img = pg.image.load(os.path.join("assets","boss","ogre", f"frame_{i}.png")).convert_alpha()
+                img = pg.transform.scale_by(img, 1.0)
+                self.animations['basic'].append(img)
+            for i in range(0, 1):
+                img = pg.image.load(os.path.join("assets", "boss", "ogre", "hurt", f"frame_{i}.png")).convert_alpha()
+                img = pg.transform.scale_by(img, 1.0)
+                self.animations['hurt'].append(img)
 
-        for i in range(0,1):
-            img = pg.image.load(os.path.join("assets", "boss", "ogre", "hurt", f"frame_{i}.png")).convert_alpha()
-            img = pg.transform.scale_by(img, 1.0)
-            self.animations['hurt'].append(img)
+        elif type == BossEnum.mage:
+            for i in range(0, 8):
+                img = pg.image.load(os.path.join("assets", "boss", "mage", f"frame_{i}.png")).convert_alpha()
+                img = pg.transform.scale_by(img, 1.0)
+                self.animations['basic'].append(img)
 
-        for i in range(0,1):
-            img = pg.image.load(os.path.join("assets", "boss", "ogre", "hurt", f"frame_{i}.png")).convert_alpha()
-            img = pg.transform.scale_by(img, 1.0)
-            self.animations['dead'].append(img)
+            for i in range(0,1):
+                img = pg.image.load(os.path.join("assets", "boss", "mage", "hurt", f"frame_{i}.png")).convert_alpha()
+                img = pg.transform.scale_by(img, 1.0)
+                self.animations['hurt'].append(img)
 
         self.frame_index = 0
         self.image = self.animations['basic'][self.frame_index]
