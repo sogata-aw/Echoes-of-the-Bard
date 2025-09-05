@@ -27,7 +27,7 @@ class Game:
         # Difficulté
         # TODO à changer en fonction de la difficulté du boss
         # if easy
-        self.min_delay, self.max_delay = 2000, 2500 #ms
+        self.min_delay, self.max_delay = 1500, 2000 #ms
         # if normal (2000,3500)
         # if normal (1000,2000)
 

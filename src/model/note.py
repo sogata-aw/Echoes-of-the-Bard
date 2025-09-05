@@ -23,7 +23,7 @@ class Note(pg.sprite.Sprite):
 
         # Animation
         self.start_time = pg.time.get_ticks() #temps où la note est créée
-        self.duration = 2000 #ms
+        self.duration = 1000 #ms
         self.perfect_start = None
         self.alive = True
         self.state = 0
