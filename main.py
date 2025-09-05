@@ -9,7 +9,7 @@ from src.model.stateEnum import StateEnum
 
 def main():
     pg.init()
-    pg.display.set_caption("Jeux super mega bien") # nom fenêtre
+    pg.display.set_caption("Echoes of the bard") # nom fenêtre
     screen_size = (1024, 768) # Taille écran
     screen = pg.display.set_mode(screen_size)
     clock = pg.time.Clock() # horloge
@@ -95,6 +95,7 @@ def main():
             game.update(all_sprites)
             game.draw(all_sprites)
             if game.isfinish():
+                pg.mixer.music.stop()
                 game_state = StateEnum.finished
         # Update et Draw de l'écran de Victoir/Défaite
         elif game_state == StateEnum.finished:

@@ -15,12 +15,25 @@ class Fin:
         # text secondaire
         self.text_secondaire = self.font.render("Appuyez sur la barre d'espace pour revenir au menu", True,(200, 200, 200))
 
+        # --- Effet sonore ---
+        self.victory_sound = pg.mixer.Sound(os.path.join("sounds", "music", "victory.mp3"))
+        self.defeat_sound = pg.mixer.Sound(os.path.join("sounds", "music", "defeat.mp3"))
+
+        # flag pour éviter de relancer en boucle
+        self.sound_player = False
+
     def update(self, game):
         # Choix du texte principal
         if game.boss.state == 'dead':
             self.image = pg.image.load(os.path.join("assets","victoire.png")).convert_alpha()
+            if not self.sound_player:
+                self.victory_sound.play(loops=0)
+                self.sound_player = True
         else:
             self.image = pg.image.load(os.path.join("assets", "defaite.png")).convert_alpha()
+            if not self.sound_player:
+                self.defeat_sound.play(loops=0)
+                self.sound_player = True
 
     def draw(self):
         # Efface l’écran
