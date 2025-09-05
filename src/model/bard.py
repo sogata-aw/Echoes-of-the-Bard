@@ -36,7 +36,6 @@ class Bard(pg.sprite.Sprite):
     def invisible(self):
         """initialise la periode d'invisibilité"""
         # Applique un cooldown
-        print(f"{pg.time.get_ticks()} : {self.last_invisible} : {self.cd_invisible}")
         if (pg.time.get_ticks() - self.last_invisible) > self.cd_invisible:
             self.last_invisible = pg.time.get_ticks()
             self.state = 'invisible'
