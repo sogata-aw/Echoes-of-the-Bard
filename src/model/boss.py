@@ -1,5 +1,4 @@
 import pygame as pg
-from src.model.sonicBoom import SonicBoom
 import os
 
 class Boss(pg.sprite.Sprite):
