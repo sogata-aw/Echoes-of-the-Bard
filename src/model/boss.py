@@ -40,8 +40,8 @@ class Boss(pg.sprite.Sprite):
                 img = pg.transform.scale_by(img, 2)
                 self.animations['basic'].append(img)
 
-            for i in range(0,1):
-                img = pg.image.load(os.path.join("assets", "boss", "ogre", "hurt", f"frame_{i}.png")).convert_alpha()
+            for i in range(0,2):
+                img = pg.image.load(os.path.join("assets", "boss", "mage", "hurt", f"frame_{i}.png")).convert_alpha()
                 img = pg.transform.scale_by(img, 2)
                 self.animations['hurt'].append(img)
 
