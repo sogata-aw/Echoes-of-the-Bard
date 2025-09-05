@@ -1,4 +1,5 @@
 import pygame as pg
+from src.model.sonicBoom import SonicBoom
 import os
 
 class Boss(pg.sprite.Sprite):
@@ -75,14 +76,11 @@ class Boss(pg.sprite.Sprite):
                     self.state = 'basic'
                     self.frame_index = 0
             self.image = frames[self.frame_index]
-        # if self.state != 'dead' and now - self.last_attack >= self.attack_speed:
-        #     self.attack(self.game.bard)
-        #     self.last_attack = now
 
-    def attack(self, bard):
-        """Attaque le barde, lui infligeant des dégâts"""
-        if self.state != 'dead':
-            bard.take_damage(self.BASE_DAMAGE) #* (1 + (self.difficulte / 10)))
+        if self.state != 'dead' and now - self.last_attack >= self.attack_speed:
+            """Attaque le barde, lui infligeant des dégâts"""
+            self.game.spawnSonicBoom()
+            self.last_attack = now
 
     def draw(self, surface):
         surface.blit(self.image, self.rect)

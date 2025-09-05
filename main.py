@@ -58,7 +58,7 @@ def main():
                         case pg.K_b:
                             game.bard.take_damage(1)  # Pour tester les degat au barde
                         case pg.K_j:
-                            game.spawnfireball(all_sprites)
+                            game.spawnSonicBoom(all_sprites)
                         case pg.K_ESCAPE:
                             game_state = StateEnum.in_menu # Mettre en pause
                         case _:

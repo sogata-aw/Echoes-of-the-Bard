@@ -3,7 +3,7 @@ import os
 import pygame as pg
 from src.model.bard import Bard
 from src.model.boss import Boss
-from src.model.fireball import Fireball
+from src.model.sonicBoom import SonicBoom
 from src.model.inputUI import InputUi
 from src.model.bossHp import BossHp
 from src.model.note import Note
@@ -43,10 +43,10 @@ class Game:
             return True
         else:
             return False
-    def spawnfireball(self,listesprite):
-        """fait apparaitre une boule de feu qui vas du boss au barde"""
-        fireball = Fireball(self.boss, self.bard)
-        listesprite.add(fireball)
+    def spawnSonicBoom(self,listesprite):
+        """fait apparaitre une onde sonore qui vas du boss au barde"""
+        sonic = SonicBoom(self.boss, self.bard)
+        listesprite.add(sonic)
 
     # --- Fonction d'update et de Draw ---
     def update(self, listSprite):
