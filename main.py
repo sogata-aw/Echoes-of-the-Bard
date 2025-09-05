@@ -38,6 +38,8 @@ def main():
                 # Event dans le menu
                 if game_state == StateEnum.in_menu:
                     match event.key:
+                        case pg.K_F11:
+                            pg.display.toggle_fullscreen()
                         case pg.K_DOWN:
                             menu.select_next()
                         case pg.K_UP:
