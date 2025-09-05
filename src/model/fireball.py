@@ -4,7 +4,7 @@ import pygame as pg
 class Fireball(pg.sprite.Sprite):
     def __init__(self, boss, bard):
         super().__init__()
-
+        self.bard = bard
         #Image Boule de feu
         self.image = pg.image.load(os.path.join("assets", "boss", "ogre", "fireball.png")).convert_alpha()
         self.image = pg.transform.scale_by(self.image, 1)
@@ -25,6 +25,7 @@ class Fireball(pg.sprite.Sprite):
             # Option : stop net quand on atteint ou dépasse la cible
             if self.pos.distance_to(self.target) < self.speed:
                 self.kill()
+                self.bard.take_damage(1)  # Inflige des dégâts au barde
 
             # Mise à jour de la position du rect
             self.rect.center = (round(self.pos.x), round(self.pos.y))

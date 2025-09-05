@@ -13,7 +13,7 @@ class Boss(pg.sprite.Sprite):
         self.max_hp = max_hp
         self.hp = self.max_hp
         self.difficulte = difficulte  # 0 facile, 1 normal, 2 moyen, 3 difficile
-
+        self.type = type
         self.attack_speed = 6000  #/ difficulte
         # Etats possibles : 'basic', 'hurt', 'dead'
         self.state = 'basic'
@@ -21,6 +21,7 @@ class Boss(pg.sprite.Sprite):
         # Frames pour chaque état
         self.animations = {
             'basic': [],
+            'attack': [],
             'hurt': [],
         }
 
@@ -33,6 +34,7 @@ class Boss(pg.sprite.Sprite):
                 img = pg.image.load(os.path.join("assets","boss","ogre", f"frame_{i}.png")).convert_alpha()
                 img = pg.transform.scale_by(img, 1.0)
                 self.animations['basic'].append(img)
+                self.animations['attack'].append(img)
             for i in range(0, 1):
                 img = pg.image.load(os.path.join("assets", "boss", "ogre", "hurt", f"frame_{i}.png")).convert_alpha()
                 img = pg.transform.scale_by(img, 1.0)
@@ -43,9 +45,13 @@ class Boss(pg.sprite.Sprite):
                 img = pg.image.load(os.path.join("assets", "boss", "mage", f"frame_{i}.png")).convert_alpha()
                 img = pg.transform.scale_by(img, 2)
                 self.animations['basic'].append(img)
+            for i in range(0, 10):
+                img = pg.image.load(os.path.join("assets", "boss", "mage", "attack", f"frame_{i}.png")).convert_alpha()
+                img = pg.transform.scale_by(img, 2)
+                self.animations['attack'].append(img)
 
-            for i in range(0,1):
-                img = pg.image.load(os.path.join("assets", "boss", "ogre", "hurt", f"frame_{i}.png")).convert_alpha()
+            for i in range(0,2):
+                img = pg.image.load(os.path.join("assets", "boss", "mage", "hurt", f"frame_{i}.png")).convert_alpha()
                 img = pg.transform.scale_by(img, 2)
                 self.animations['hurt'].append(img)
 
@@ -86,13 +92,24 @@ class Boss(pg.sprite.Sprite):
                     # Retour à basic après hurt
                     self.state = 'basic'
                     self.frame_index = 0
+                elif self.state == 'attack':
+                    # Retour à basic après hurt
+                    self.state = 'basic'
+                    self.frame_index = 0
             self.image = frames[self.frame_index]
 
-        if self.state != 'dead' and now - self.last_attack >= self.attack_speed:
-            """Attaque le barde, lui infligeant des dégâts"""
-            self.game.spawnSonicBoom()
-            self.attack_sound.play()
-            self.last_attack = now
+            if self.frame_index == len(frames) // (2-0.5) and self.state == 'attack' and self.type==BossEnum.mage:
+                self.game.spawnFireball()
+                self.attack_sound.play()
+                self.last_attack = now
+
+            if self.state != 'dead' and now - self.last_attack >= self.attack_speed:
+                """Attaque le barde, lui infligeant des dégâts"""
+                self.state = 'attack'
+                if self.type==BossEnum.ogre:
+                    self.game.spawnSonicBoom()
+                    self.attack_sound.play()
+                    self.last_attack = now
 
     def draw(self, surface):
         surface.blit(self.image, self.rect)
