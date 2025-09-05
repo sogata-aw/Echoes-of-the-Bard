@@ -3,6 +3,7 @@ import pygame as pg
 import src.model.game as g
 import src.model.menu as m
 import src.model.fin as f
+import src.model.credit as c
 from src.model.stateEnum import StateEnum
 
 def main():
@@ -19,6 +20,7 @@ def main():
     game = g.Game(screen)
     menu = m.Menu(screen)
     fin = f.Fin(screen)
+    credit = c.Credit(screen)
 
     # Ajout sprite de l'ecran de jeu dans all_sprite
     all_sprites = pg.sprite.Group()
@@ -35,14 +37,17 @@ def main():
                 if game_state == StateEnum.in_menu:
                     match event.key:
                         case pg.K_DOWN:
-                            menu.selected_option = 1
+                            menu.select_next()
                         case pg.K_UP:
-                            menu.selected_option = 0
+                            menu.select_prev()
                         case pg.K_RETURN:
-                            if menu.selected_option == 0:
-                                game_state = StateEnum.playing
-                            elif menu.selected_option == 1:
-                                running = False
+                            match menu.selected_option:
+                                case 0:
+                                    game_state = StateEnum.playing
+                                case 1:
+                                    running = False
+                                case 2:
+                                    game_state = StateEnum.in_credit
                 # Event dans l'écran de jeu
                 elif game_state == StateEnum.playing:
                     match event.key:
@@ -66,6 +71,9 @@ def main():
                             addSprite(game, all_sprites)
                             # retour au menu
                             game_state = StateEnum.in_menu
+                # Event de l'ecran de crédit
+                elif game_state == StateEnum.in_credit:
+                    game_state = StateEnum.in_menu # Les inputs toutes les touches font revenir au menu
 
         #---- Mise à jour et dessin selon l'état ---
         # Update et Draw du Menu
@@ -82,7 +90,9 @@ def main():
         elif game_state == StateEnum.finished:
             fin.update(game)
             fin.draw()
-
+        # Draw les Crédit
+        elif game_state == StateEnum.in_credit:
+            credit.draw()
         pg.display.flip()
         clock.tick(60)
     pg.quit()

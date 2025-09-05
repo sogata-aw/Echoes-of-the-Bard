@@ -10,6 +10,7 @@ class Menu:
         self.BTN_X = self.screen.get_width() // 2 - self.BTN_SIZE[0] // 2
         self.PLAY_Y = 130
         self.QUIT_Y = 230
+        self.CREDIT_Y = 330
 
         # --- Fond ---
         menu_img = pg.image.load("assets/menu_image.jpg")
@@ -20,6 +21,18 @@ class Menu:
         self.btn_play_selected = pg.transform.scale(pg.image.load("assets/buttons/play_button_choosen.png"), self.BTN_SIZE)
         self.btn_quit = pg.transform.scale(pg.image.load("assets/buttons/quit_button.png"), self.BTN_SIZE)
         self.btn_quit_selected = pg.transform.scale(pg.image.load("assets/buttons/quit_button_choosen.png"), self.BTN_SIZE)
+        self.btn_credit = pg.transform.scale(pg.image.load("assets/buttons/credit_button.png"), self.BTN_SIZE)
+        self.btn_credit_selected = pg.transform.scale(pg.image.load("assets/buttons/credit_button_choosen.png"), self.BTN_SIZE)
+
+    def select_prev(self):
+        """ selection le bouton au-dessus de l'actuel"""
+        if self.selected_option != 0:
+            self.selected_option -= 1
+
+    def select_next(self):
+        """ selection le bouton au-dessous de l'actuel"""
+        if self.selected_option != 2:
+            self.selected_option += 1
 
     def draw(self):
         """Affiche le menu à l’écran"""
@@ -36,3 +49,9 @@ class Menu:
             self.screen.blit(self.btn_quit_selected, (self.BTN_X, self.QUIT_Y))
         else:
             self.screen.blit(self.btn_quit, (self.BTN_X, self.QUIT_Y))
+
+        # --- Bouton Credit ---
+        if self.selected_option == 2:
+            self.screen.blit(self.btn_credit_selected, (self.BTN_X, self.CREDIT_Y))
+        else:
+            self.screen.blit(self.btn_credit, (self.BTN_X, self.CREDIT_Y))
