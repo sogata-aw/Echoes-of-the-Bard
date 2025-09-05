@@ -18,9 +18,6 @@ class Note(pg.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
 
-        # Son
-        self.note_sound = pg.mixer.Sound(os.path.join("sounds", "sound_effect", f"note01.mp3"))
-
         # Animation
         self.start_time = pg.time.get_ticks() #temps où la note est créée
         self.duration = 1000 #ms
@@ -72,13 +69,10 @@ class Note(pg.sprite.Sprite):
             return degats
         match self.state:
             case 1:
-                pg.mixer.Sound.play(self.note_sound)
                 degats = 1
             case 2:
-                pg.mixer.Sound.play(self.note_sound)
                 degats = 5
             case 3:
-                pg.mixer.Sound.play(self.note_sound)
                 degats = 10
         self.alive = False
         self.kill()

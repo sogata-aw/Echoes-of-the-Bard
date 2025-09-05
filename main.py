@@ -48,9 +48,9 @@ def main():
                             match menu.selected_option:
                                 case 0:
                                     game_state = StateEnum.playing
-                                case 1:
-                                    running = False
                                 case 2:
+                                    running = False
+                                case 1:
                                     game_state = StateEnum.in_credit
                 # Event dans l'écran de jeu
                 elif game_state == StateEnum.playing:
@@ -84,9 +84,11 @@ def main():
         #---- Mise à jour et dessin selon l'état ---
         # Update et Draw du Menu
         if game_state == StateEnum.in_menu:
+            menu.start_music()
             menu.draw()
         # Update et Draw de l'écran de jeux
         elif game_state == StateEnum.playing:
+            menu.stop_music()
             game.update(all_sprites)
             game.draw(all_sprites)
             if game.isfinish():
