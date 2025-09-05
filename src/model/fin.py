@@ -25,12 +25,12 @@ class Fin:
     def update(self, game):
         # Choix du texte principal
         if game.boss.state == 'dead':
-            self.image = pg.image.load(os.path.join("assets","victoire.png")).convert_alpha()
+            self.image = pg.transform.scale(pg.image.load(os.path.join("assets","victory.png")).convert_alpha(),(600,300))
             if not self.sound_player:
                 self.victory_sound.play(loops=0)
                 self.sound_player = True
         else:
-            self.image = pg.image.load(os.path.join("assets", "defaite.png")).convert_alpha()
+            self.image = pg.transform.scale(pg.image.load(os.path.join("assets","defeat.png")).convert_alpha(),(600,300))
             if not self.sound_player:
                 self.defeat_sound.play(loops=0)
                 self.sound_player = True
