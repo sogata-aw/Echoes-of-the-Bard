@@ -10,14 +10,14 @@ from src.model.note import Note
 
 
 class Game:
-    def __init__(self, screen: pg.Surface, listeSprite: pg.sprite.Group):
+    def __init__(self, screen: pg.Surface, listeSprite: pg.sprite.Group, bossType):
         self.screen = screen
         self.listeSprite = listeSprite
         background = pg.image.load(os.path.join("assets","combat_ogre_image.jpg"))
         self.background = pg.transform.scale(background, screen.get_size())
 
 
-        self.boss = Boss(x=400, y=100, game=self, max_hp=100, difficulte=1, base_damage=1)
+        self.boss = Boss(x=400, y=100, game=self, max_hp=100, difficulte=1, base_damage=1, type=bossType)
         self.bosshp = BossHp(self.boss)
 
         self.bard = Bard(x=30, y=400)

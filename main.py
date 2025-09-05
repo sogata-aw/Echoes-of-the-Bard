@@ -4,6 +4,7 @@ import src.model.game as g
 import src.model.menu as m
 import src.model.fin as f
 import src.model.credit as c
+from src.model.BossEnum import BossEnum
 from src.model.stateEnum import StateEnum
 
 def main():
@@ -24,7 +25,7 @@ def main():
 
     # Ajout sprite de l'écran de jeu dans all_sprite
     all_sprites = pg.sprite.Group()
-    game = g.Game(screen, all_sprites)
+    game = g.Game(screen, all_sprites, BossEnum.mage)
     addSprite(game,all_sprites)
 
     running = True
