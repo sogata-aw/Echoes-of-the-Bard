@@ -3,6 +3,7 @@ import os
 import pygame as pg
 from src.model.bard import Bard
 from src.model.boss import Boss
+from src.model.fireball import Fireball
 from src.model.inputUI import InputUi
 from src.model.bossHp import BossHp
 from src.model.note import Note
@@ -15,6 +16,7 @@ class Game:
         background = pg.image.load(os.path.join("assets","combat_ogre_image.jpg"))
         self.background = pg.transform.scale(background, screen.get_size())
 
+
         self.boss = Boss(x=400, y=100, game=self, max_hp=100, difficulte=1, base_damage=1)
         self.bosshp = BossHp(self.boss)
 
@@ -22,7 +24,6 @@ class Game:
         self.inputUi = InputUi()
         self.notesPos = [(120, 250), (230, 250), (340, 290), (420, 380)]
         self.type_to_keys = {1:pg.K_w, 2:pg.K_x, 3:pg.K_c, 4:pg.K_v}
-
         # Difficulté
         # TODO à changer en fonction de la difficulté du boss
         # if easy
@@ -42,6 +43,10 @@ class Game:
             return True
         else:
             return False
+    def spawnfireball(self,listesprite):
+        """fait apparaitre une boule de feu qui vas du boss au barde"""
+        fireball = Fireball(self.boss, self.bard)
+        listesprite.add(fireball)
 
     # --- Fonction d'update et de Draw ---
     def update(self, listSprite):
