@@ -10,9 +10,9 @@ from src.model.note import Note
 
 
 class Game:
-    def __init__(self, screen: pg.Surface):
+    def __init__(self, screen: pg.Surface, listeSprite: pg.sprite.Group):
         self.screen = screen
-
+        self.listeSprite = listeSprite
         background = pg.image.load(os.path.join("assets","combat_ogre_image.jpg"))
         self.background = pg.transform.scale(background, screen.get_size())
 
@@ -33,7 +33,7 @@ class Game:
 
         # Notes actives
         self.notes = [None, None, None, None]
-
+        self.compteur = 0
         self.next_spawn = 0
         self.arm_global_timer()
 
@@ -43,10 +43,10 @@ class Game:
             return True
         else:
             return False
-    def spawnSonicBoom(self,listesprite):
+    def spawnSonicBoom(self):
         """fait apparaitre une onde sonore qui vas du boss au barde"""
         sonic = SonicBoom(self.boss, self.bard)
-        listesprite.add(sonic)
+        self.listeSprite.add(sonic)
 
     # --- Fonction d'update et de Draw ---
     def update(self, listSprite):
@@ -81,6 +81,7 @@ class Game:
             if note is not None and note.key == key and note.alive:
                 self.boss.take_damage(note.hit())
                 self.bosshp.draw()
+                self.compteur +=1
 
     # --- Gestion des Notes ---
     def spawn_note(self):
