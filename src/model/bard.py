@@ -33,6 +33,10 @@ class Bard(pg.sprite.Sprite):
         self.health_sprites = pg.sprite.Group()
         self.update_hp()
 
+        # --- Effet sonore ---
+        self.hit_sound = pg.mixer.Sound(os.path.join("sounds", "sound_effect", "bard-hit.wav"))
+        self.hit_sound.set_volume(0.1)
+
     def invisible(self):
         """initialise la periode d'invisibilité"""
         # Applique un cooldown
@@ -46,6 +50,7 @@ class Bard(pg.sprite.Sprite):
         """initialise la periode avec l'animation coup"""
         self.state = 'hurt'
         self.image = self.hurt_image
+        self.hit_sound.play()
         self.hurt_timer = 0
 
     def update(self):

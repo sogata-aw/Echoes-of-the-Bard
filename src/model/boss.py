@@ -24,6 +24,10 @@ class Boss(pg.sprite.Sprite):
             'hurt': [],
         }
 
+        # --- Effet sonore ---
+        self.attack_sound = pg.mixer.Sound(os.path.join("sounds", "sound_effect", "boss-attack.wav"))
+        self.attack_sound.set_volume(0.1)
+
         if type == BossEnum.ogre:
             for i in range(0, 5):
                 img = pg.image.load(os.path.join("assets","boss","ogre", f"frame_{i}.png")).convert_alpha()
@@ -87,6 +91,7 @@ class Boss(pg.sprite.Sprite):
         if self.state != 'dead' and now - self.last_attack >= self.attack_speed:
             """Attaque le barde, lui infligeant des dégâts"""
             self.game.spawnSonicBoom()
+            self.attack_sound.play()
             self.last_attack = now
 
     def draw(self, surface):
