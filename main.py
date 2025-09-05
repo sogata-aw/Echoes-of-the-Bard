@@ -13,24 +13,25 @@ def main():
     screen = pg.display.set_mode(screen_size)
     clock = pg.time.Clock() # horloge
 
-    # Etat
+    # État
     game_state = StateEnum.in_menu
 
     # Instance
-    game = g.Game(screen)
+
     menu = m.Menu(screen)
     fin = f.Fin(screen)
     credit = c.Credit(screen)
 
-    # Ajout sprite de l'ecran de jeu dans all_sprite
+    # Ajout sprite de l'écran de jeu dans all_sprite
     all_sprites = pg.sprite.Group()
+    game = g.Game(screen, all_sprites)
     addSprite(game,all_sprites)
 
     running = True
     while running:
         # --- Gestion des événements selon l'état---
         for event in pg.event.get():
-            if event.type == pg.QUIT: # Fermer le Jeu
+            if event.type == pg.QUIT: # Fermer le jeu
                 running = False
             if event.type == pg.KEYDOWN:
                 # Event dans le menu
@@ -54,11 +55,11 @@ def main():
                         case pg.K_SPACE:
                             game.bard.invisible()
                         case pg.K_DOWN:
-                            game.boss.take_damage(10)  # Pour tester les degat au boss
+                            game.boss.take_damage(10)  # Pour tester les dégâts au boss
                         case pg.K_b:
-                            game.bard.take_damage(1)  # Pour tester les degat au barde
+                            game.bard.take_damage(1)  # Pour tester les dégâts au bard
                         case pg.K_j:
-                            game.spawnSonicBoom(all_sprites)
+                            game.spawnSonicBoom()
                         case pg.K_ESCAPE:
                             game_state = StateEnum.in_menu # Mettre en pause
                         case _:
@@ -69,11 +70,11 @@ def main():
                         case pg.K_SPACE:
                             # Reinitialisation de la partie
                             all_sprites.empty()
-                            game = g.Game(screen)
+                            game = g.Game(screen, all_sprites)
                             addSprite(game, all_sprites)
                             # retour au menu
                             game_state = StateEnum.in_menu
-                # Event de l'ecran de crédit
+                # Event de l'écran de crédit
                 elif game_state == StateEnum.in_credit:
                     game_state = StateEnum.in_menu # Les inputs toutes les touches font revenir au menu
 
