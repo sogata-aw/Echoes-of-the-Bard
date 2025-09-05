@@ -31,12 +31,18 @@ class Game:
         # if normal (2000,3500)
         # if normal (1000,2000)
 
+        # --- Musique ---
+        pg.mixer.music.load(os.path.join("sounds", "music", f"battle-song.mp3"))
+        pg.mixer.music.play(-1)
+
+        # --- Effet sonore ---
+        self.hit_sound = pg.mixer.Sound(os.path.join("sounds", "sound_effect", "note01.mp3"))
+        self.hit_sound.set_volume(0.3)
         # Notes actives
         self.notes = [None, None, None, None]
         self.compteur = 0
         self.next_spawn = 0
         self.arm_global_timer()
-        pg.mixer.music.stop()
 
     def isfinish(self):
         """Indique si la partie est finie"""
@@ -83,6 +89,8 @@ class Game:
                 self.boss.take_damage(note.hit())
                 self.bosshp.draw()
                 self.compteur +=1
+
+                self.hit_sound.play()
 
     # --- Gestion des Notes ---
     def spawn_note(self):

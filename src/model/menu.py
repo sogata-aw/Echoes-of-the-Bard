@@ -15,8 +15,16 @@ class Menu:
         self.CREDIT_Y = 450
 
         # --- Fond ---
-        menu_img = pg.image.load("assets/menu_image.jpg")
-        self.background = pg.transform.scale(menu_img, screen.get_size())
+        menu_img = pg.image.load("assets/img_menu.jpeg")
+        # Respecter le ratio de l'image...
+        screen_w, screen_h = screen.get_size()
+        img_w, img_h = menu_img.get_size()
+        scale_factor = max(screen_w / img_w, screen_h / img_h)
+        new_w = int(img_w * scale_factor)
+        new_h = int(img_h * scale_factor)
+        self.background = pg.transform.scale(menu_img, (new_w, new_h))
+        self.bg_rect = self.background.get_rect(center=(screen_w//2, screen_h//2))
+
 
         # --- Musique ---
         self.menu_sound = pg.mixer.Sound(os.path.join("sounds", "music", f"menu-song.mp3"))
@@ -39,10 +47,15 @@ class Menu:
         if self.selected_option != 2:
             self.selected_option += 1
 
+    def start_music(self):
+        pg.mixer.Sound.play(self.menu_sound, loops=-1)
+
+    def stop_music(self):
+        self.menu_sound.stop()
+
     def draw(self):
         """Affiche le menu à l’écran"""
-        self.screen.blit(self.background, (0, 0))
-        pg.mixer.Sound.play(self.menu_sound)
+        self.screen.blit(self.background, self.bg_rect)
 
         # --- Bouton Play ---
         if self.selected_option == 0:

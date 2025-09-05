@@ -25,7 +25,7 @@ class Bard(pg.sprite.Sprite):
         # Animation invisible
         self.opacity = 51 #opacité du barde quand il est "invisible"
         self.invisible_timer = 0
-        self.invisible_duration = 20  # durée en ticks (frames)
+        self.invisible_duration = 50  # durée en ticks (frames)
 
         # Groupe de Sprite de la Barre de vie
         self.health_sprites = pg.sprite.Group()
