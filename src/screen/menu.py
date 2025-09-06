@@ -2,13 +2,16 @@ import os
 
 import pygame as pg
 
+
 class Menu:
     def __init__(self, screen: pg.Surface):
         self.screen = screen
         self.selected_option = 0  # 0 = Play, 1 = Quit, 2 = Credit
 
         # --- Constantes ---
-        self.TITLE_SIZE = (500,135)
+        self.ASSETS = os.path.join("assets", "menu")
+        self.ASSETS_BTN = os.path.join(self.ASSETS, "buttons")
+        self.TITLE_SIZE = (500, 135)
         self.TITLE_X = (self.screen.get_width() // 2 - self.TITLE_SIZE[0] // 2)
         self.TITLE_Y = 30
         self.BTN_SIZE = (300, 150)
@@ -18,7 +21,7 @@ class Menu:
         self.QUIT_Y = 550
 
         # --- Fond ---
-        menu_img = pg.image.load("assets/img_menu.jpeg")
+        menu_img = pg.image.load(os.path.join(self.ASSETS, "img_menu.jpeg"))
         # Respecter le ratio de l'image...
         screen_w, screen_h = screen.get_size()
         img_w, img_h = menu_img.get_size()
@@ -26,22 +29,27 @@ class Menu:
         new_w = int(img_w * scale_factor)
         new_h = int(img_h * scale_factor)
         self.background = pg.transform.scale(menu_img, (new_w, new_h))
-        self.bg_rect = self.background.get_rect(center=(screen_w//2, screen_h//2))
-
+        self.bg_rect = self.background.get_rect(center=(screen_w // 2, screen_h // 2))
 
         # --- Musique ---
         self.menu_sound = pg.mixer.Sound(os.path.join("sounds", "music", f"menu-song.mp3"))
 
         # --- Boutons ---
-        self.btn_play = pg.transform.scale(pg.image.load("assets/buttons/play_button.png"), self.BTN_SIZE)
-        self.btn_play_selected = pg.transform.scale(pg.image.load("assets/buttons/play_button_choosen.png"), self.BTN_SIZE)
-        self.btn_quit = pg.transform.scale(pg.image.load("assets/buttons/quit_button.png"), self.BTN_SIZE)
-        self.btn_quit_selected = pg.transform.scale(pg.image.load("assets/buttons/quit_button_choosen.png"), self.BTN_SIZE)
-        self.btn_credit = pg.transform.scale(pg.image.load("assets/buttons/credit_button.png"), self.BTN_SIZE)
-        self.btn_credit_selected = pg.transform.scale(pg.image.load("assets/buttons/credit_button_choosen.png"), self.BTN_SIZE)
+        self.btn_play = pg.transform.scale(pg.image.load(os.path.join(self.ASSETS_BTN, "play_button.png")),
+                                           self.BTN_SIZE)
+        self.btn_play_selected = pg.transform.scale(
+            pg.image.load(os.path.join(self.ASSETS_BTN, "play_button_choosen.png")), self.BTN_SIZE)
+        self.btn_quit = pg.transform.scale(pg.image.load(os.path.join(self.ASSETS_BTN, "quit_button.png")),
+                                           self.BTN_SIZE)
+        self.btn_quit_selected = pg.transform.scale(
+            pg.image.load(os.path.join(self.ASSETS_BTN, "quit_button_choosen.png")), self.BTN_SIZE)
+        self.btn_credit = pg.transform.scale(pg.image.load(os.path.join(self.ASSETS_BTN, "credit_button.png")),
+                                             self.BTN_SIZE)
+        self.btn_credit_selected = pg.transform.scale(
+            pg.image.load(os.path.join(self.ASSETS_BTN, "credit_button_choosen.png")), self.BTN_SIZE)
 
         # --- Titre ---
-        self.title = pg.transform.scale(pg.image.load("assets/title.webp"), self.TITLE_SIZE)
+        self.title = pg.transform.scale(pg.image.load(os.path.join(self.ASSETS, "title.webp")), self.TITLE_SIZE)
 
     def select_prev(self):
         """ selection le bouton au-dessus de l'actuel"""
@@ -62,7 +70,7 @@ class Menu:
     def draw(self):
         """Affiche le menu à l’écran"""
         self.screen.blit(self.background, self.bg_rect)
-        self.screen.blit(self.title,(self.TITLE_X, self.TITLE_Y))
+        self.screen.blit(self.title, (self.TITLE_X, self.TITLE_Y))
 
         # --- Bouton Play ---
         if self.selected_option == 0:

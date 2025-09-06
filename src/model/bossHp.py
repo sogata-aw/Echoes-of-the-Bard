@@ -2,6 +2,7 @@ import os.path
 
 import pygame as pg
 
+
 class BossHp(pg.sprite.Sprite):
     def __init__(self, boss):
         super().__init__()
@@ -10,7 +11,7 @@ class BossHp(pg.sprite.Sprite):
         self.height = 100
 
         # Charger le cadre décoratif
-        self.image = pg.image.load(os.path.join("assets", "boss", "ogre", "hp", "bar.png")).convert_alpha()
+        self.image = pg.image.load(os.path.join("assets", "game", "boss", "ogre", "hp", "bar.png")).convert_alpha()
         self.image = pg.transform.scale(self.image, (self.width, self.height))
 
         self.rect = self.image.get_rect()
@@ -34,4 +35,3 @@ class BossHp(pg.sprite.Sprite):
 
         if self.boss.hp == 0:
             self.kill()
-

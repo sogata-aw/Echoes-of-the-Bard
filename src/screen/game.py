@@ -1,22 +1,23 @@
-import random
 import os
+import random
+
 import pygame as pg
+
 from src.model.bard import Bard
 from src.model.boss import Boss
-from src.model.sonicBoom import SonicBoom
+from src.model.bossHp import BossHp
 from src.model.fireball import Fireball
 from src.model.inputUI import InputUi
-from src.model.bossHp import BossHp
 from src.model.note import Note
+from src.model.sonicBoom import SonicBoom
 
 
 class Game:
     def __init__(self, screen: pg.Surface, listeSprite: pg.sprite.Group, bossType):
         self.screen = screen
         self.listeSprite = listeSprite
-        background = pg.image.load(os.path.join("assets","combat_ogre_image.jpg"))
+        background = pg.image.load(os.path.join("assets", "game", "combat_ogre_image.jpg"))
         self.background = pg.transform.scale(background, screen.get_size())
-
 
         self.boss = Boss(x=400, y=100, game=self, max_hp=100, difficulte=1, base_damage=1, type=bossType)
         self.bosshp = BossHp(self.boss)
@@ -24,11 +25,11 @@ class Game:
         self.bard = Bard(x=30, y=400)
         self.inputUi = InputUi()
         self.notesPos = [(120, 250), (230, 250), (340, 290), (420, 380)]
-        self.type_to_keys = {1:pg.K_w, 2:pg.K_x, 3:pg.K_c, 4:pg.K_v}
+        self.type_to_keys = {1: pg.K_w, 2: pg.K_x, 3: pg.K_c, 4: pg.K_v}
         # Difficulté
         # TODO à changer en fonction de la difficulté du boss
         # if easy
-        self.min_delay, self.max_delay = 1500, 2000 #ms
+        self.min_delay, self.max_delay = 1500, 2000  # ms
         # if normal (2000,3500)
         # if normal (1000,2000)
 
@@ -47,10 +48,12 @@ class Game:
             return True
         else:
             return False
+
     def spawnSonicBoom(self):
         """fait apparaitre une onde sonore qui vas du boss au barde"""
         sonic = SonicBoom(self.boss, self.bard)
         self.listeSprite.add(sonic)
+
     def spawnFireball(self):
         """fait apparaitre une onde sonore qui vas du boss au barde"""
         fireball = Fireball(self.boss, self.bard)
@@ -77,7 +80,7 @@ class Game:
         listSprite.update()
 
     def draw(self, listSprite):
-        self.screen.fill((0, 0, 0)) # Remise a zero
+        self.screen.fill((0, 0, 0))  # Remise a zero
         self.bosshp.draw()
         self.screen.blit(self.background, (0, 0))
         listSprite.draw(self.screen)
@@ -89,7 +92,7 @@ class Game:
             if note is not None and note.key == key and note.alive:
                 self.boss.take_damage(note.hit())
                 self.bosshp.draw()
-                self.compteur +=1
+                self.compteur += 1
 
                 self.hit_sound.play()
 
@@ -112,7 +115,7 @@ class Game:
         slot = random.choice(empty_slots)
         pos = self.notesPos[slot]
         key = self.type_to_keys[note_type]
-        self.notes[slot] = Note(pos[0], pos[1], note_type,key)
+        self.notes[slot] = Note(pos[0], pos[1], note_type, key)
         return True
 
     def arm_global_timer(self):
@@ -125,10 +128,10 @@ class Game:
         used = self.active_types()
         possible = []
         t = 1
-        while t <=4:
+        while t <= 4:
             if t not in used:
                 possible.append(t)
-            t +=1
+            t += 1
         if not possible:
             return None
         return random.choice(possible)

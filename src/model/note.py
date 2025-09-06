@@ -1,15 +1,22 @@
 import os
+
 import pygame as pg
 
+
 class Note(pg.sprite.Sprite):
-    def __init__(self,x,y,type, key):
+    def __init__(self, x, y, type, key):
         super().__init__()
+
+        # Path
+        self.ASSETS = os.path.join("assets", "game", "notes")
         self.type = type
         # Images normales
-        self.image = pg.transform.scale(pg.image.load(os.path.join("assets","notes", f"note-0{type}.svg")).convert_alpha(), (100, 100))
+        self.image = pg.transform.scale(
+            pg.image.load(os.path.join(self.ASSETS, f"note-0{type}.svg")).convert_alpha(), (100, 100))
 
         # Image "gold"
-        self.image_gold = pg.transform.scale(pg.image.load(os.path.join("assets", "notes", f"note-0{type}-golden.svg")).convert_alpha(), (100, 100))
+        self.image_gold = pg.transform.scale(
+            pg.image.load(os.path.join(self.ASSETS, f"note-0{type}-golden.svg")).convert_alpha(), (100, 100))
         if type == 3:
             self.image = pg.transform.scale_by(self.image, 1.2)
             self.image_gold = pg.transform.scale_by(self.image_gold, 1.2)
@@ -19,8 +26,8 @@ class Note(pg.sprite.Sprite):
         self.rect.topleft = (x, y)
 
         # Animation
-        self.start_time = pg.time.get_ticks() #temps où la note est créée
-        self.duration = 1000 #ms
+        self.start_time = pg.time.get_ticks()  # temps où la note est créée
+        self.duration = 1000  # ms
         self.perfect_start = None
         self.alive = True
         self.state = 0
@@ -28,7 +35,6 @@ class Note(pg.sprite.Sprite):
         self.key = key
         # Démarrer à 20% d'opacité
         self.image.set_alpha(int(0.2 * 255))
-
 
     def update(self):
         now = pg.time.get_ticks()
@@ -49,12 +55,12 @@ class Note(pg.sprite.Sprite):
 
         progress = max(0.0, min(1.0, cooldown / self.duration))
         # La note apparait à 20% d'opacité (environ 51/255)
-        opacity = int(51 + (204 * progress)) #255-51=204
+        opacity = int(51 + (204 * progress))  # 255-51=204
 
         self.image = self.base_img.copy()
         self.image.set_alpha(opacity)
 
-        #Màj de la state
+        # Màj de la state
         percent = opacity * 100 / 255
         if 20 <= percent <= 70:
             self.state = 1

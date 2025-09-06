@@ -1,11 +1,12 @@
 import pygame as pg
 
+
 class Credit:
     def __init__(self, screen: pg.Surface):
         self.screen = screen
         self.width, self.height = self.screen.get_size()
 
-        #font
+        # font
         self.font = pg.font.SysFont("Courier", 30, bold=True)
 
         self.texts = []

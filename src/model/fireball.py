@@ -1,18 +1,20 @@
 import os
+
 import pygame as pg
+
 
 class Fireball(pg.sprite.Sprite):
     def __init__(self, boss, bard):
         super().__init__()
         self.bard = bard
-        #Image Boule de feu
-        self.image = pg.image.load(os.path.join("assets", "boss", "ogre", "fireball.png")).convert_alpha()
-        self.image = pg.transform.scale_by(self.image, 1)
+        # Image Boule de feu
+        self.image = pg.image.load(os.path.join("assets", "game", "boss", "ogre", "fireball.png")).convert_alpha()
+        self.image = pg.transform.scale_by(self.image, 0.33)
         self.rect = self.image.get_rect(topleft=boss.rect.center)
 
         # Déplacement
-        self.pos = pg.math.Vector2(boss.rect.center)# position de la boule de feu
-        self.target = pg.math.Vector2(bard.rect.center)# cible
+        self.pos = pg.math.Vector2(boss.rect.center)  # position de la boule de feu
+        self.target = pg.math.Vector2(bard.rect.center)  # cible
         self.speed = 5  # pixels par frame
 
     def update(self):
@@ -29,5 +31,6 @@ class Fireball(pg.sprite.Sprite):
 
             # Mise à jour de la position du rect
             self.rect.center = (round(self.pos.x), round(self.pos.y))
+
     def draw(self, surface):
         surface.blit(self.image, self.rect)

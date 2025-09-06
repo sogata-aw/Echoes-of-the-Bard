@@ -1,22 +1,25 @@
-import os  #!/usr/bin/env python
+import os  # !/usr/bin/env python
+
 import pygame as pg
-import src.model.game as g
-import src.model.menu as m
-import src.model.fin as f
-import src.model.credit as c
-from src.model.BossEnum import BossEnum
-from src.model.stateEnum import StateEnum
+
+import src.screen.credit as c
+import src.screen.end as f
+import src.screen.game as g
+import src.screen.menu as m
+from src.enum.BossEnum import BossEnum
+from src.enum.stateEnum import StateEnum
+
 
 def main():
     pg.init()
-    pg.display.set_caption("Echoes of the bard") # nom fenêtre
-    screen_size = (1024, 768) # Taille écran
+    pg.display.set_caption("Echoes of the bard")  # nom fenêtre
+    screen_size = (1024, 768)  # Taille écran
     screen = pg.display.set_mode(screen_size)
-    clock = pg.time.Clock() # horloge
+    clock = pg.time.Clock()  # horloge
 
     # État
     game_state = StateEnum.in_menu
-    end_print = False # Sauvegarde si l'écran de fin a été affiché
+    end_print = False  # Sauvegarde si l'écran de fin a été affiché
 
     # Instance
     menu = m.Menu(screen)
@@ -26,13 +29,13 @@ def main():
     # Ajout sprite de l'écran de jeu dans all_sprite
     all_sprites = pg.sprite.Group()
     game = g.Game(screen, all_sprites, BossEnum.ogre)
-    addSprite(game,all_sprites)
+    addSprite(game, all_sprites)
 
     running = True
     while running:
         # --- Gestion des événements selon l'état---
         for event in pg.event.get():
-            if event.type == pg.QUIT: # Fermer le jeu
+            if event.type == pg.QUIT:  # Fermer le jeu
                 running = False
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_F11:
@@ -67,7 +70,7 @@ def main():
                         case pg.K_j:
                             game.spawnSonicBoom()
                         case pg.K_ESCAPE:
-                            game_state = StateEnum.in_menu # Mettre en pause
+                            game_state = StateEnum.in_menu  # Mettre en pause
                         case _:
                             game.handle_key(event.key)
                 # Event de l'écran de Victoire/Défaite
@@ -76,18 +79,18 @@ def main():
                         case pg.K_SPACE:
                             # Reinitialisation de la partie
                             all_sprites.empty()
-                            game = g.Game(screen, all_sprites,BossEnum.mage)
+                            game = g.Game(screen, all_sprites, BossEnum.mage)
                             addSprite(game, all_sprites)
                             # retour au menu
                             game_state = StateEnum.in_menu
                 # Event de l'écran de crédit
                 elif game_state == StateEnum.in_credit:
-                    game_state = StateEnum.in_menu # Les inputs toutes les touches font revenir au menu
+                    game_state = StateEnum.in_menu  # Les inputs toutes les touches font revenir au menu
 
-        #---- Mise à jour et dessin selon l'état ---
+        # ---- Mise à jour et dessin selon l'état ---
         # Update et Draw du Menu
         if game_state == StateEnum.in_menu:
-            if end_print: end_print=False # permet a l'écran de fin de s'afficher de nouveau
+            if end_print: end_print = False  # permet a l'écran de fin de s'afficher de nouveau
             menu.start_music()
             menu.draw()
         # Update et Draw de l'écran de jeux
@@ -111,10 +114,13 @@ def main():
         clock.tick(60)
     pg.quit()
 
-def addSprite(game,all_sprites):
+
+def addSprite(game, all_sprites):
     all_sprites.add(game.boss)
     all_sprites.add(game.bosshp)
     all_sprites.add(game.bard)
     all_sprites.add(game.inputUi.input_group)
+
+
 if __name__ == "__main__":
     main()

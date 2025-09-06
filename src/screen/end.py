@@ -7,13 +7,14 @@ class Fin:
     def __init__(self, screen: pg.Surface):
         self.image = None
         self.screen = screen
-
+        self.ASSETS = os.path.join("assets", "end")
         # Police principale (tu peux mettre un .ttf dans assets/fonts/)
-        font_path = pg.font.match_font("freesansbold")  # remplace par os.path.join("assets","fonts","maPolice.ttf") si tu veux une perso
-        self.font= pg.font.Font(font_path, 30)  # instructions
+        font_path = pg.font.match_font("freesansbold")
+        self.font = pg.font.Font(font_path, 30)  # instructions
 
         # text secondaire
-        self.text_secondaire = self.font.render("Appuyez sur la barre d'espace pour revenir au menu", True,(10, 10, 10))
+        self.text_secondaire = self.font.render("Appuyez sur la barre d'espace pour revenir au menu", True,
+                                                (10, 10, 10))
 
         # --- Effet sonore ---
         self.victory_sound = pg.mixer.Sound(os.path.join("sounds", "music", "victory.mp3"))
@@ -25,12 +26,14 @@ class Fin:
     def update(self, game):
         # Choix du texte principal
         if game.boss.state == 'dead':
-            self.image = pg.transform.scale(pg.image.load(os.path.join("assets","victory.png")).convert_alpha(),(600,300))
+            self.image = pg.transform.scale(pg.image.load(os.path.join(self.ASSETS, "victory.png")).convert_alpha(),
+                                            (600, 300))
             if not self.sound_player:
                 self.victory_sound.play(loops=0)
                 self.sound_player = True
         else:
-            self.image = pg.transform.scale(pg.image.load(os.path.join("assets","defeat.png")).convert_alpha(),(600,300))
+            self.image = pg.transform.scale(pg.image.load(os.path.join(self.ASSETS, "defeat.png")).convert_alpha(),
+                                            (600, 300))
             if not self.sound_player:
                 self.defeat_sound.play(loops=0)
                 self.sound_player = True
@@ -49,7 +52,7 @@ class Fin:
         """floute l'écran"""
         w, h = self.screen.get_size()
         # Crée une version réduite de l'écran
-        small_screen = pg.transform.smoothscale(self.screen,(int(w * 0.075), int(h * 0.075)))
+        small_screen = pg.transform.smoothscale(self.screen, (int(w * 0.075), int(h * 0.075)))
         # Agrandis l'image réduite a la taille de l'écran actuelle
         blured = pg.transform.smoothscale(small_screen, (w, h))
         return blured
