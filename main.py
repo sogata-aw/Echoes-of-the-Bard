@@ -85,6 +85,7 @@ def main():
                             game_state = StateEnum.in_menu
                 # Event de l'écran de crédit
                 elif game_state == StateEnum.in_credit:
+                    credit.draw()
                     game_state = StateEnum.in_menu  # Les inputs toutes les touches font revenir au menu
 
         # ---- Mise à jour et dessin selon l'état ---
