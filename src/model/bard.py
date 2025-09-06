@@ -62,8 +62,6 @@ class Bard(pg.sprite.Sprite):
 
     def update(self):
         match self.state:
-            case 'dead':
-                self.kill()
             case 'alive':
                 if self.image == self.hurt_image:
                     self.image = self.alive_image
@@ -94,6 +92,8 @@ class Bard(pg.sprite.Sprite):
             if self.hp <= 0:
                 self.hp = 0
                 self.state = 'dead'
+                self.kill()
+                self.health_sprites.empty()
 
     def update_hp(self):
         """Met a jour les vies du bard"""
