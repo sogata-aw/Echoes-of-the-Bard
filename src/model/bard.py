@@ -103,5 +103,5 @@ class Bard(pg.sprite.Sprite):
         self.health_sprites.add(init_sprite(os.path.join(self.ASSETS_HP, "frame.png"), -5, 680, (200, 90)))
         # Ajoute les cœurs
         for i in range(self.hp):
-            health = init_sprite(os.path.join(self.ASSETS_HP, "heart.png"), 54 * i, 680, (75, 75))
+            health = init_sprite(os.path.join(self.ASSETS_HP, "heart.png"), 57 * i, 675, (75, 75))
             self.health_sprites.add(health)
