@@ -18,14 +18,13 @@ def main():
     game_state = StateEnum.in_menu
 
     # Instance
-
     menu = m.Menu(screen)
     fin = f.Fin(screen)
     credit = c.Credit(screen)
 
     # Ajout sprite de l'écran de jeu dans all_sprite
     all_sprites = pg.sprite.Group()
-    game = g.Game(screen, all_sprites, BossEnum.mage)
+    game = g.Game(screen, all_sprites, BossEnum.ogre)
     addSprite(game,all_sprites)
 
     running = True
@@ -76,7 +75,7 @@ def main():
                         case pg.K_SPACE:
                             # Reinitialisation de la partie
                             all_sprites.empty()
-                            game = g.Game(screen, all_sprites)
+                            game = g.Game(screen, all_sprites,BossEnum.mage)
                             addSprite(game, all_sprites)
                             # retour au menu
                             game_state = StateEnum.in_menu
