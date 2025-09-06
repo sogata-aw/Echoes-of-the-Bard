@@ -115,7 +115,7 @@ class Game:
         slot = random.choice(empty_slots)
         pos = self.notesPos[slot]
         key = self.type_to_keys[note_type]
-        self.notes[slot] = Note(pos[0], pos[1], note_type, key)
+        self.notes[slot] = Note(pos[0], pos[1], note_type, key, self.bard)
         return True
 
     def arm_global_timer(self):

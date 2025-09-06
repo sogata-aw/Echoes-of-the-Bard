@@ -4,7 +4,7 @@ import pygame as pg
 
 
 class Note(pg.sprite.Sprite):
-    def __init__(self, x, y, type, key):
+    def __init__(self, x, y, type, key, bard):
         super().__init__()
 
         # Path
@@ -36,6 +36,8 @@ class Note(pg.sprite.Sprite):
         # Démarrer à 20% d'opacité
         self.image.set_alpha(int(0.2 * 255))
 
+        self.bard = bard
+
     def update(self):
         now = pg.time.get_ticks()
 
@@ -44,6 +46,7 @@ class Note(pg.sprite.Sprite):
             if now - self.perfect_start > 250:
                 self.alive = False
                 self.kill()
+                self.bard.take_damage(1)
             return
 
         cooldown = now - self.start_time
