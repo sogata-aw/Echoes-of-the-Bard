@@ -16,6 +16,7 @@ def main():
 
     # État
     game_state = StateEnum.in_menu
+    end_print = False # Sauvegarde si l'écran de fin a été affiché
 
     # Instance
     menu = m.Menu(screen)
@@ -86,10 +87,12 @@ def main():
         #---- Mise à jour et dessin selon l'état ---
         # Update et Draw du Menu
         if game_state == StateEnum.in_menu:
+            if end_print: end_print=False # permet a l'écran de fin de s'afficher de nouveau
             menu.start_music()
             menu.draw()
         # Update et Draw de l'écran de jeux
         elif game_state == StateEnum.playing:
+
             menu.stop_music()
             game.update(all_sprites)
             game.draw(all_sprites)
@@ -97,7 +100,8 @@ def main():
                 pg.mixer.music.stop()
                 game_state = StateEnum.finished
         # Update et Draw de l'écran de Victoir/Défaite
-        elif game_state == StateEnum.finished:
+        elif game_state == StateEnum.finished and not end_print:
+            end_print = True
             fin.update(game)
             fin.draw()
         # Draw les Crédit
