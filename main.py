@@ -105,6 +105,7 @@ def main():
         # Update et Draw de l'écran de Victoir/Défaite
         elif game_state == StateEnum.finished and not end_print:
             end_print = True
+            fin.sound_player = False
             fin.update(game)
             fin.draw()
         # Draw les Crédit
