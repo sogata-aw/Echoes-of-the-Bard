@@ -8,11 +8,14 @@ class Menu:
         self.selected_option = 0  # 0 = Play, 1 = Quit, 2 = Credit
 
         # --- Constantes ---
+        self.TITLE_SIZE = (500,135)
+        self.TITLE_X = (self.screen.get_width() // 2 - self.TITLE_SIZE[0] // 2)
+        self.TITLE_Y = 30
         self.BTN_SIZE = (300, 150)
         self.BTN_X = self.screen.get_width() // 2 - self.BTN_SIZE[0] // 2
-        self.PLAY_Y = 180
-        self.QUIT_Y = 500
-        self.CREDIT_Y = 340
+        self.PLAY_Y = 230
+        self.CREDIT_Y = 390
+        self.QUIT_Y = 550
 
         # --- Fond ---
         menu_img = pg.image.load("assets/img_menu.jpeg")
@@ -38,7 +41,7 @@ class Menu:
         self.btn_credit_selected = pg.transform.scale(pg.image.load("assets/buttons/credit_button_choosen.png"), self.BTN_SIZE)
 
         # --- Titre ---
-        self.title = pg.transform.scale(pg.image.load("assets/title.webp"), (500,135))
+        self.title = pg.transform.scale(pg.image.load("assets/title.webp"), self.TITLE_SIZE)
 
     def select_prev(self):
         """ selection le bouton au-dessus de l'actuel"""
@@ -59,7 +62,7 @@ class Menu:
     def draw(self):
         """Affiche le menu à l’écran"""
         self.screen.blit(self.background, self.bg_rect)
-        self.screen.blit(self.title, (self.BTN_X-70, 10))
+        self.screen.blit(self.title,(self.TITLE_X, self.TITLE_Y))
 
         # --- Bouton Play ---
         if self.selected_option == 0:
