@@ -1,19 +1,19 @@
 #!/bin/bash
 
-# Arrêter le script si une commande échoue
+# Arrêt du script si une commande échoue
 set -e
 
-# Créer l'environnement virtuel si non existant
+# Création l'environnement virtuel si non existant
 if [ ! -d ".env" ]; then
     echo "Création de l'environnement virtuel..."
     virtualenv -p python3 .env
 fi
 
-# Activer l'environnement virtuel
+# Activation de l'environnement virtuel
 source .env/bin/activate
 
-# Installer les dépendances
+# Installation des dépendances
 pip3 install -r requirements.txt
 
-# Lancer ton programme
+# Lancement du jeu
 python3 main.py
