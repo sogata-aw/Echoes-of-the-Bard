@@ -15,7 +15,7 @@ class Boss(pg.sprite.Sprite):
 
         # HP
         self.BASE_DAMAGE = base_damage
-        self.max_hp = max_hp
+        self.max_hp = int(max_hp * (1 + ((difficulte / 10) * 2)))
         self.hp = self.max_hp
         self.difficulte = difficulte  # 0 facile, 1 normal, 2 moyens, 3 difficiles
         self.type = type
