@@ -30,7 +30,8 @@ pip3 install -r requirements.txt
 ```bash
 python3 main.py
 ```
-## 📝 Auteurs
+## 📝 Présentation
+![Texte alternatif](/assets/Game_Jam_Echoes_Of_The_Bard_Presentation.jpg)
 - Aline ROSTAGNAT - *Cheffe de projet*
 - Nils RAYOT - *Développeur*
 - Thomas REYMOND - *Développeur*
