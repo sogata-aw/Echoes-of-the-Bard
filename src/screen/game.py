@@ -14,13 +14,13 @@ from src.model.sonicBoom import SonicBoom
 
 
 class Game:
-    def __init__(self, screen: pg.Surface, listeSprite: pg.sprite.Group, bossType):
+    def __init__(self, screen: pg.Surface, listeSprite: pg.sprite.Group, bossType, difficulty=1):
         self.screen = screen
         self.listeSprite = listeSprite
         background = pg.image.load(os.path.join("assets", "game", "combat_ogre_image.jpg"))
         self.background = pg.transform.scale(background, screen.get_size())
-
-        self.boss = Boss(x=400, y=100, game=self, max_hp=100, difficulte=1, base_damage=1, type=bossType)
+        self.difficulty = difficulty  # 1 facile, 2 moyen, 3 difficile
+        self.boss = Boss(x=400, y=100, game=self, max_hp=100, difficulte=self.difficulty, base_damage=1, type=bossType)
         self.bosshp = BossHp(self.boss)
 
         self.bard = Bard(x=30, y=400)
@@ -96,7 +96,16 @@ class Game:
                 self.compteur += 1
 
                 self.hit_sound.play()
-
+    def win(self, isWin):
+        if isWin:
+            self.difficulty += 1
+        else:
+            self.difficulty -= 1
+        if self.difficulty <= 1:
+            self.difficulty = 1
+        elif self.difficulty >= 3:
+            self.difficulty = 3
+        print('difficulty :', self.difficulty)
     # --- Gestion des Notes ---
     def spawn_note(self):
         # pas deux notes du même type en même temps

@@ -19,7 +19,7 @@ class Boss(pg.sprite.Sprite):
         self.hp = self.max_hp
         self.difficulte = difficulte  # 0 facile, 1 normal, 2 moyens, 3 difficiles
         self.type = type
-        self.attack_speed = 6000  # / difficulte
+        self.attack_speed = 12000  / difficulte
         # Etats possibles : 'basic', 'hurt', 'dead'
         self.state = 'basic'
         self.game = game

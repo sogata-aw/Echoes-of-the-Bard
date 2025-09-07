@@ -30,7 +30,7 @@ def main():
 
     # Ajout sprite de l'écran de jeu dans all_sprite
     all_sprites = pg.sprite.Group()
-    game = g.Game(screen, all_sprites, BossEnum.ogre)
+    game = g.Game(screen, all_sprites, BossEnum.ogre) # 1 facile, 2 moyen, 3 difficile
     addSprite(game, all_sprites)
 
     running = True
@@ -71,11 +71,12 @@ def main():
                             pg.mixer.music.play(-1)
                             game_state = StateEnum.playing
                             all_sprites.empty()
+                            difficulty = game.difficulty
                             match levels.selected_level:
                                 case 1:
-                                    game = g.Game(screen, all_sprites, BossEnum.ogre)
+                                    game = g.Game(screen, all_sprites, BossEnum.ogre, difficulty)
                                 case 2:
-                                    game = g.Game(screen, all_sprites, BossEnum.mage)
+                                    game = g.Game(screen, all_sprites, BossEnum.mage, difficulty)
                             addSprite(game, all_sprites)
 
                 # Event dans l'écran de jeu
@@ -87,7 +88,7 @@ def main():
                             game.boss.take_damage(10)  # Pour tester les dégâts au boss
                         case pg.K_b:
                             game.bard.take_damage(1)  # Pour tester les dégâts au bard
-                        case pg.K_j:
+                        case pg.K_i:
                             game.spawnSonicBoom()
                         case pg.K_ESCAPE:
                             game_state = StateEnum.in_menu  # Mettre en pause
@@ -99,7 +100,8 @@ def main():
                         case pg.K_SPACE:
                             # Reinitialisation de la partie
                             all_sprites.empty()
-                            game = g.Game(screen, all_sprites, BossEnum.mage)
+                            difficulty = game.difficulty
+                            game = g.Game(screen, all_sprites, BossEnum.mage, difficulty)
                             addSprite(game, all_sprites)
                             # retour au menu
                             game_state = StateEnum.in_menu
