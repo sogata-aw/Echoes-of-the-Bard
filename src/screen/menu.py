@@ -7,6 +7,7 @@ class Menu:
     def __init__(self, screen: pg.Surface):
         self.screen = screen
         self.selected_option = 0  # 0 = Play, 1 = Quit, 2 = Credit
+        self.music_playing = False
 
         # --- Constantes ---
         self.ASSETS = os.path.join("assets", "menu")
@@ -62,10 +63,14 @@ class Menu:
             self.selected_option += 1
 
     def start_music(self):
-        pg.mixer.Sound.play(self.menu_sound, loops=-1)
+        if not self.music_playing:
+            pg.mixer.Sound.play(self.menu_sound, loops=-1)
+            self.music_playing = True
 
     def stop_music(self):
-        self.menu_sound.stop()
+        if self.music_playing:
+            self.menu_sound.stop()
+            self.music_playing = False
 
     def draw(self):
         """Affiche le menu à l’écran"""

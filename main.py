@@ -116,7 +116,8 @@ def main():
         # ---- Mise à jour et dessin selon l'état ---
         # Update et Draw du Menu
         if game_state == StateEnum.in_menu:
-            if end_print: end_print = False  # permet a l'écran de fin de s'afficher de nouveau
+            if end_print:
+                end_print = False  # permet a l'écran de fin de s'afficher de nouveau
             menu.start_music()
             menu.draw()
         # Draw le menus de levels
