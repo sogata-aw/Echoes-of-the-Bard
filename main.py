@@ -74,12 +74,12 @@ def main():
                     match event.key:
                         case pg.K_SPACE:
                             game.bard.invisible()
-                        case pg.K_DOWN:
-                            game.boss.take_damage(10)  # Pour tester les dégâts au boss
-                        case pg.K_b:
-                            game.bard.take_damage(1)  # Pour tester les dégâts au bard
-                        case pg.K_i:
-                            game.spawnSonicBoom()
+                        #case pg.K_DOWN:
+                        #    game.boss.take_damage(10)  # Pour tester les dégâts au boss
+                        #case pg.K_b:
+                        #    game.bard.take_damage(1)  # Pour tester les dégâts au bard
+                        #case pg.K_i:
+                        #    game.spawnSonicBoom()
                         case pg.K_ESCAPE:
                             game_state = StateEnum.in_menu  # Mettre en pause
                         case _:
