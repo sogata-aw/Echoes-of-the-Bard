@@ -32,7 +32,3 @@ python3 main.py
 ```
 ## 📝 Présentation
 ![Texte alternatif](/assets/Game_Jam_Echoes_Of_The_Bard_Presentation.jpg)
-- Aline ROSTAGNAT - *Cheffe de projet*
-- Nils RAYOT - *Développeur*
-- Thomas REYMOND - *Développeur*
-- Maxime RASTELLI - *Game Artist* 🎨
