@@ -3,6 +3,7 @@ import random
 
 import pygame as pg
 
+from src.enum.BossEnum import BossEnum
 from src.model.bard import Bard
 from src.model.boss import Boss
 from src.model.bossHp import BossHp
@@ -41,6 +42,9 @@ class Game:
         self.compteur = 0
         self.next_spawn = 0
         self.arm_global_timer()
+
+    def setBoss(self,type:BossEnum):
+        Boss(x=400, y=100, game=self, max_hp=100, difficulte=1, base_damage=1, type=type)
 
     def isfinish(self):
         """Indique si la partie est finie"""
