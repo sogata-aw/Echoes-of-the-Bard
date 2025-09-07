@@ -59,7 +59,7 @@ def main():
                                     running = False
                                 case 1:
                                     game_state = StateEnum.in_credit
-                # Event dans l'ecrant de levels
+                # Event dans l'ecran de levels
                 elif game_state == StateEnum.levels:
                     match event.key:
                         case pg.K_UP:
@@ -94,8 +94,7 @@ def main():
                             game = g.Game(screen, all_sprites, BossEnum.mage, difficulty)
                             addSprite(game, all_sprites)
                             # retour au menu
-                            game_state = StateEnum.levels
-                            menu.start_music()
+                            game_state = StateEnum.in_menu
                 # Event de l'écran de crédit
                 elif game_state == StateEnum.in_credit:
                     game_state = StateEnum.in_menu  # Les inputs toutes les touches font revenir au menu
