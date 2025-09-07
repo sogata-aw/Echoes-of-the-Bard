@@ -28,12 +28,14 @@ class Fin:
         if game.boss.state == 'dead':
             self.image = pg.transform.scale(pg.image.load(os.path.join(self.ASSETS, "victory.png")).convert_alpha(),
                                             (600, 300))
+            game.win(True)
             if not self.sound_player:
                 self.victory_sound.play(loops=0)
                 self.sound_player = True
         else:
             self.image = pg.transform.scale(pg.image.load(os.path.join(self.ASSETS, "defeat.png")).convert_alpha(),
                                             (600, 300))
+            game.win(False)
             if not self.sound_player:
                 self.defeat_sound.play(loops=0)
                 self.sound_player = True

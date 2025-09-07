@@ -7,6 +7,7 @@ import src.screen.end as f
 import src.screen.game as g
 import src.screen.menu as m
 import src.screen.levels as l
+import src.screen.explanation as e
 from src.enum.BossEnum import BossEnum
 from src.enum.stateEnum import StateEnum
 
@@ -27,10 +28,11 @@ def main():
     fin = f.Fin(screen)
     credit = c.Credit(screen)
     levels = l.Levels(screen)
+    explanation = e.Explanation(screen)
 
     # Ajout sprite de l'écran de jeu dans all_sprite
     all_sprites = pg.sprite.Group()
-    game = g.Game(screen, all_sprites, BossEnum.ogre)
+    game = g.Game(screen, all_sprites, BossEnum.ogre) # 1 facile, 2 moyen, 3 difficile
     addSprite(game, all_sprites)
 
     running = True
@@ -65,18 +67,7 @@ def main():
                         case pg.K_DOWN:
                             levels.selected_level = 1
                         case pg.K_RETURN:
-                            # Lancement d'un combat
-                            menu.stop_music()
-                            pg.mixer.music.load(os.path.join("sounds", "music", f"battle-song.mp3"))
-                            pg.mixer.music.play(-1)
-                            game_state = StateEnum.playing
-                            all_sprites.empty()
-                            match levels.selected_level:
-                                case 1:
-                                    game = g.Game(screen, all_sprites, BossEnum.ogre)
-                                case 2:
-                                    game = g.Game(screen, all_sprites, BossEnum.mage)
-                            addSprite(game, all_sprites)
+                            game_state = StateEnum.explanation
 
                 # Event dans l'écran de jeu
                 elif game_state == StateEnum.playing:
@@ -87,7 +78,7 @@ def main():
                             game.boss.take_damage(10)  # Pour tester les dégâts au boss
                         case pg.K_b:
                             game.bard.take_damage(1)  # Pour tester les dégâts au bard
-                        case pg.K_j:
+                        case pg.K_i:
                             game.spawnSonicBoom()
                         case pg.K_ESCAPE:
                             game_state = StateEnum.in_menu  # Mettre en pause
@@ -99,13 +90,28 @@ def main():
                         case pg.K_SPACE:
                             # Reinitialisation de la partie
                             all_sprites.empty()
-                            game = g.Game(screen, all_sprites, BossEnum.mage)
+                            difficulty = game.difficulty
+                            game = g.Game(screen, all_sprites, BossEnum.mage, difficulty)
                             addSprite(game, all_sprites)
                             # retour au menu
                             game_state = StateEnum.in_menu
                 # Event de l'écran de crédit
                 elif game_state == StateEnum.in_credit:
                     game_state = StateEnum.in_menu  # Les inputs toutes les touches font revenir au menu
+                elif game_state == StateEnum.explanation:
+                    # Lancement d'un combat
+                    menu.stop_music()
+                    pg.mixer.music.load(os.path.join("sounds", "music", f"battle-song.mp3"))
+                    pg.mixer.music.play(-1)
+                    game_state = StateEnum.playing
+                    all_sprites.empty()
+                    difficulty = game.difficulty
+                    match levels.selected_level:
+                        case 1:
+                            game = g.Game(screen, all_sprites, BossEnum.ogre, difficulty)
+                        case 2:
+                            game = g.Game(screen, all_sprites, BossEnum.mage, difficulty)
+                    addSprite(game, all_sprites)
 
         # ---- Mise à jour et dessin selon l'état ---
         # Update et Draw du Menu
@@ -116,6 +122,9 @@ def main():
         # Draw le menus de levels
         elif game_state == StateEnum.levels:
             levels.draw()
+
+        elif game_state == StateEnum.explanation:
+            explanation.draw()
         # Update et Draw de l'écran de jeux
         elif game_state == StateEnum.playing:
             menu.stop_music()
