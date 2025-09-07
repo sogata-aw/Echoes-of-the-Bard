@@ -13,7 +13,7 @@ class Fin:
         self.font = pg.font.Font(font_path, 30)  # instructions
 
         # text secondaire
-        self.text_secondaire = self.font.render("Press the space bar to return to the menu", True,
+        self.text_secondaire = self.font.render("Press the space bar to return to the level choice menu", True,
                                                 (10, 10, 10))
 
         # --- Effet sonore ---
