@@ -27,8 +27,8 @@ class Explanation(pygame.sprite.Sprite):
         start_x = self.screen_w // 2 - ((len(keys) - 1) * spacing // 2)
 
         for i, (k, n) in enumerate(zip(keys, notes)):
-            key_sprite = init_sprite(os.path.join(self.LETTERS, k), start_x + i * spacing, base_y_attack )
-            note_sprite = init_sprite(os.path.join(self.NOTE, n), start_x + i * spacing, base_y_attack+ 50)
+            key_sprite = init_sprite(os.path.join(self.LETTERS, k), start_x + i * spacing, base_y_attack, (40,40) )
+            note_sprite = init_sprite(os.path.join(self.NOTE, n), start_x + i * spacing, base_y_attack+ 50, (60,60))
             key_sprite.add(self.input_group)
             note_sprite.add(self.input_group)
 
@@ -37,14 +37,14 @@ class Explanation(pygame.sprite.Sprite):
 
         bard = init_sprite(
             os.path.join("assets", "game", "bard", "tete-bard.png"),
-            self.screen_w // 2 - 70, base_y_avoid + 50,
+            self.screen_w // 2 - 130, base_y_avoid + 50,
             (64, int(64 * 298 / 258))
         )
         bard.image.set_alpha(51)
 
         space_input = init_sprite(
             os.path.join(self.LETTERS, "space.svg"),
-            self.screen_w // 2 + 30, base_y_avoid + 50,
+            self.screen_w // 2 - 50, base_y_avoid + 50,
             (180, 60)
         )
 
