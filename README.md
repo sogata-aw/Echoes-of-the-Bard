@@ -2,7 +2,6 @@
     <img src="assets/LogoGameJam2025.png" alt="Logo" width="12%" style="margin: 0; padding: 0"/>
     <h1> GameJam 2025</h1>
 </div>
-<hr>
 
 ![Static Badge](https://img.shields.io/badge/Python-3.12.3-3776AB?style=for-the-badge&logo=python&labelColor=%232F2F2F)
 ![Static Badge](https://img.shields.io/badge/PyGame-2.6.1-3776AB?style=for-the-badge&logo=python&labelColor=%232F2F2F)
@@ -31,4 +30,4 @@ pip3 install -r requirements.txt
 python3 main.py
 ```
 ## 📝 Présentation
-![Texte alternatif](/assets/Game_Jam_Echoes_Of_The_Bard_Presentation.jpg)
+![- Aline ROSTAGNAT - *Cheffe de projet*</br>- Nils RAYOT - *Développeur*</br>- Thomas REYMOND - *Développeur*</br>- Maxime RASTELLI - *Game Artist* 🎨](assets/Game_Jam_Echoes_Of_The_Bard_Presentation.jpg)
