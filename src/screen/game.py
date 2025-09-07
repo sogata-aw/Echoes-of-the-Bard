@@ -28,11 +28,7 @@ class Game:
         self.notesPos = [(120, 250), (230, 250), (340, 290), (420, 380)]
         self.type_to_keys = {1: pg.K_j, 2: pg.K_k, 3: pg.K_l, 4: pg.K_m}
         # Difficulté
-        # TODO à changer en fonction de la difficulté du boss
-        # if easy
-        self.min_delay, self.max_delay = 1500, 2000  # ms
-        # if normal (2000,3500)
-        # if normal (1000,2000)
+        self.min_delay, self.max_delay = int(1750 * (1 - ((self.difficulty / 10) * 2))), int(2450 * (1 - ((self.difficulty / 10) * 2))) # ms
 
         # --- Effet sonore ---
         self.hit_sound = pg.mixer.Sound(os.path.join("sounds", "sound_effect", "note01.mp3"))
