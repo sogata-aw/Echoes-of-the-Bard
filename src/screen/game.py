@@ -3,6 +3,7 @@ import random
 
 import pygame as pg
 
+from src.enum.BossEnum import BossEnum
 from src.model.bard import Bard
 from src.model.boss import Boss
 from src.model.bossHp import BossHp

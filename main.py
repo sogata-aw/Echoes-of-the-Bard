@@ -1,11 +1,12 @@
-import os  # !/usr/bin/env python
-
+# !/usr/bin/env python
+import os
 import pygame as pg
 
 import src.screen.credit as c
 import src.screen.end as f
 import src.screen.game as g
 import src.screen.menu as m
+import src.screen.levels as l
 from src.enum.BossEnum import BossEnum
 from src.enum.stateEnum import StateEnum
 
@@ -25,6 +26,7 @@ def main():
     menu = m.Menu(screen)
     fin = f.Fin(screen)
     credit = c.Credit(screen)
+    levels = l.Levels(screen)
 
     # Ajout sprite de l'écran de jeu dans all_sprite
     all_sprites = pg.sprite.Group()
@@ -50,14 +52,32 @@ def main():
                         case pg.K_RETURN:
                             match menu.selected_option:
                                 case 0:
-                                    menu.stop_music()
-                                    pg.mixer.music.load(os.path.join("sounds", "music", f"battle-song.mp3"))
-                                    pg.mixer.music.play(-1)
-                                    game_state = StateEnum.playing
+                                    game_state = StateEnum.levels
                                 case 2:
                                     running = False
                                 case 1:
                                     game_state = StateEnum.in_credit
+                # Event dans l'ecrant de levels
+                elif game_state == StateEnum.levels:
+                    match event.key:
+                        case pg.K_UP:
+                            levels.selected_level = 2
+                        case pg.K_DOWN:
+                            levels.selected_level = 1
+                        case pg.K_RETURN:
+                            # Lancement d'un combat
+                            menu.stop_music()
+                            pg.mixer.music.load(os.path.join("sounds", "music", f"battle-song.mp3"))
+                            pg.mixer.music.play(-1)
+                            game_state = StateEnum.playing
+                            all_sprites.empty()
+                            match levels.selected_level:
+                                case 1:
+                                    game = g.Game(screen, all_sprites, BossEnum.ogre)
+                                case 2:
+                                    game = g.Game(screen, all_sprites, BossEnum.mage)
+                            addSprite(game, all_sprites)
+
                 # Event dans l'écran de jeu
                 elif game_state == StateEnum.playing:
                     match event.key:
@@ -85,7 +105,6 @@ def main():
                             game_state = StateEnum.in_menu
                 # Event de l'écran de crédit
                 elif game_state == StateEnum.in_credit:
-                    credit.draw()
                     game_state = StateEnum.in_menu  # Les inputs toutes les touches font revenir au menu
 
         # ---- Mise à jour et dessin selon l'état ---
@@ -94,9 +113,11 @@ def main():
             if end_print: end_print = False  # permet a l'écran de fin de s'afficher de nouveau
             menu.start_music()
             menu.draw()
+        # Draw le menus de levels
+        elif game_state == StateEnum.levels:
+            levels.draw()
         # Update et Draw de l'écran de jeux
         elif game_state == StateEnum.playing:
-
             menu.stop_music()
             game.update(all_sprites)
             game.draw(all_sprites)
