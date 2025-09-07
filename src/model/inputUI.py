@@ -21,10 +21,10 @@ class InputUi(pygame.sprite.Sprite):
         bard = init_sprite(os.path.join("assets", "game", "bard", "tete-bard.png"), 600, 720, (32, int(32*298 / 258)))
         bard.image.set_alpha(51)
 
-        w_input = init_sprite(os.path.join(self.LETTERS, "W.svg"), 785, 720)
-        x_input = init_sprite(os.path.join(self.LETTERS, "X.svg"), 850, 722)
-        c_input = init_sprite(os.path.join(self.LETTERS, "C.svg"), 905, 723)
-        v_input = init_sprite(os.path.join(self.LETTERS, "V.svg"), 965, 720)
+        w_input = init_sprite(os.path.join(self.LETTERS, "j.png"), 785, 722)
+        x_input = init_sprite(os.path.join(self.LETTERS, "k.png"), 850, 722)
+        c_input = init_sprite(os.path.join(self.LETTERS, "l.png"), 905, 722)
+        v_input = init_sprite(os.path.join(self.LETTERS, "m.png"), 965, 722)
         space_input = init_sprite(os.path.join(self.LETTERS, "space.svg"), 640, 727, (80,26))
 
         bard.add(self.input_group)

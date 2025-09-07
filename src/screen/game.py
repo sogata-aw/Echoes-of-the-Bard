@@ -26,7 +26,7 @@ class Game:
         self.bard = Bard(x=30, y=400)
         self.inputUi = InputUi()
         self.notesPos = [(120, 250), (230, 250), (340, 290), (420, 380)]
-        self.type_to_keys = {1: pg.K_w, 2: pg.K_x, 3: pg.K_c, 4: pg.K_v}
+        self.type_to_keys = {1: pg.K_j, 2: pg.K_k, 3: pg.K_l, 4: pg.K_m}
         # Difficulté
         # TODO à changer en fonction de la difficulté du boss
         # if easy
