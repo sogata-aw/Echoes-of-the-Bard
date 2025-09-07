@@ -43,9 +43,6 @@ class Game:
         self.next_spawn = 0
         self.arm_global_timer()
 
-    def setBoss(self,type:BossEnum):
-        Boss(x=400, y=100, game=self, max_hp=100, difficulte=1, base_damage=1, type=type)
-
     def isfinish(self):
         """Indique si la partie est finie"""
         if self.bard.state == 'dead' or self.boss.state == 'dead':

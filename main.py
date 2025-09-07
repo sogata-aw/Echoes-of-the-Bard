@@ -1,6 +1,5 @@
-import os  # !/usr/bin/env python
-from math import trunc
-
+# !/usr/bin/env python
+import os
 import pygame as pg
 
 import src.screen.credit as c
@@ -66,15 +65,18 @@ def main():
                         case pg.K_DOWN:
                             levels.selected_level = 1
                         case pg.K_RETURN:
+                            # Lancement d'un combat
                             menu.stop_music()
                             pg.mixer.music.load(os.path.join("sounds", "music", f"battle-song.mp3"))
                             pg.mixer.music.play(-1)
                             game_state = StateEnum.playing
+                            all_sprites.empty()
                             match levels.selected_level:
                                 case 1:
-                                    game.setBoss(BossEnum.ogre)
+                                    game = g.Game(screen, all_sprites, BossEnum.ogre)
                                 case 2:
-                                    game.setBoss(BossEnum.mage)
+                                    game = g.Game(screen, all_sprites, BossEnum.mage)
+                            addSprite(game, all_sprites)
 
                 # Event dans l'écran de jeu
                 elif game_state == StateEnum.playing:
