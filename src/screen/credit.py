@@ -17,7 +17,7 @@ class Credit:
             ("", self.text_font, (220, 220, 220)),
 
             ("Visuals", self.title_font, (238, 195, 154)),
-            ("Background images: Cupid.Cloud0 0, ChatGPT", self.text_font, (220, 220, 220)),
+            ("Background images: Cupid.Cloud0 0, GPT-4o", self.text_font, (220, 220, 220)),
             ("Sprites: Aline Rostagnat, Maxime Rastelli,", self.text_font, (220, 220, 220)),
             ("ArKeid0s, indiedb.com, Юлия Мартовская", self.text_font, (220, 220, 220)),
             ("", self.text_font, (220, 220, 220)),
